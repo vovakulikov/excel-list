@@ -1,0 +1,4 @@
+<form id="form" class="excel-list__form" name="files" (ngSubmit)="onSubmit($event)" #formLoad="ngForm">
+  <input type="file" name="excel-file" (change)="onChange($event)" multiple required>
+  <button [disabled]="formLoad.form.invalid" type="submit">Load</button>
+</form>
