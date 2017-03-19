@@ -1,12 +1,15 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var compression = require('compression');
+
 
 var app = express();
+
 const api = require('./server/routes/api');
 
 app.set('port',3000);
-
+app.use(compression());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api', api);
