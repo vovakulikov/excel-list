@@ -1,6 +1,6 @@
 /**
  * Created by Vova on 21.03.2017.
- */
+ */;
 
 var Exel = require('../Models/excels');
 var path = require('path');
