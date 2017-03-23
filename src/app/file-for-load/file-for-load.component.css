@@ -1,0 +1,7 @@
+.load-section__preload-file{
+  margin-top:20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  background: aliceblue;
+}
