@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from '../shared/store.service';
+import { StoreService } from '../../shared/store.service';
 
 @Component({
   selector: 'app-file-for-load',
-  templateUrl: './file-for-load.component.html',
-  styleUrls: ['./file-for-load.component.css']
+  templateUrl: 'file-for-load.component.html',
+  styleUrls: ['file-for-load.component.css']
 })
 export class FileForLoadComponent implements OnInit {
 

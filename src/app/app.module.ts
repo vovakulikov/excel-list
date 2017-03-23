@@ -10,10 +10,10 @@ import { HelperService } from "./shared/helper.service";
 import { StoreService } from './shared/store.service';
 
 
-import { FileForLoadComponent } from './file-for-load/file-for-load.component';
-import { FileItemComponent } from './file-item/file-item.component';
+import { FileForLoadComponent } from './form-load/file-for-load/file-for-load.component';
+import { FileItemComponent } from './form-load/file-for-load/file-item/file-item.component';
 import { ListProcessedFilesComponent } from './list-processed-files/list-processed-files.component';
-import { UploadFileItemComponent } from './upload-file-item/upload-file-item.component';
+import { UploadFileItemComponent } from './list-processed-files/upload-file-item/upload-file-item.component';
 
 
 @NgModule({

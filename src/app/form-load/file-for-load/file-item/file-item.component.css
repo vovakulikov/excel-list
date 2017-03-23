@@ -16,7 +16,7 @@
   position: absolute;
   opacity: 0;
   cursor:pointer;
-  background: url('../../assets/delete.svg');
+  background: url('../../../../assets/delete.svg');
 }
 
 .content__caption{
