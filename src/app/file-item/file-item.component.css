@@ -1,0 +1,25 @@
+.preload-file__item{
+  width: 120px;
+  margin:20px;
+  position: relative;
+}
+.item__delete-button:hover,
+.item__content:hover + .item__delete-button{
+  opacity:1;
+}
+
+.item__delete-button{
+  width: 20px;
+  height: 20px;
+  top:0;
+  right:0px;
+  position: absolute;
+  opacity: 0;
+  cursor:pointer;
+  background: url('../../assets/delete.svg');
+}
+
+.content__caption{
+  text-align: center;
+  font-size: 13px;
+}
