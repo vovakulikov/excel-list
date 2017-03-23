@@ -40,3 +40,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# EXCEl file on server
+/server/storeFiles
+
+# npm-log
+npm-debug.log.3890822464
