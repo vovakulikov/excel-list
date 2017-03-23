@@ -3,7 +3,7 @@ const router = express.Router();
 var bodyParser = require("body-parser");
 var multer = require("multer");
 
-var excelController = require('../Controllers/excel');
+var excelController = require('../controllers/excel.js');
 var config = require('../config').config;
 
 router.use(bodyParser.json());

@@ -2,8 +2,8 @@
  * Created by Vova on 21.03.2017.
  */;
 
-var Exel = require('../Models/excels');
-var path = require('path');
+let Exel = require('../models/excel.js');
+let path = require('path');
 
 exports.analiz = function(req,res){
   Exel.analiz(req.files,function(data) {
@@ -17,7 +17,7 @@ exports.get = function (req,res){
   });
 }
 
-exports.download = function(req,res){
+exports.download = function (req, res){
   console.log('Запрос на скачивания файла с id ',req.params.id);
   Exel.getAFile(req.params,function (p) {
     console.log(path.resolve(__dirname + p))
