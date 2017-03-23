@@ -3,7 +3,7 @@ import * as FileSaver from "file-saver";
 
 
 @Injectable()
-export class HelperService {
+export class RequestService {
   constructor() { }
 
   _Submit(files){

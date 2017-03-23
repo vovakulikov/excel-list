@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { StoreService } from '../shared/store.service';
-import { HelperService } from '../shared/helper.service';
+import { RequestService } from '../shared/request.service';
+
 @Component({
   selector: 'app-list-processed-files',
   templateUrl: './list-processed-files.component.html',
@@ -13,13 +14,13 @@ export class ListProcessedFilesComponent implements OnInit {
 
   listFiles: Object[];
 
-  constructor(private helperService: HelperService,private storeService: StoreService) {
+  constructor(private requestService: RequestService,private storeService: StoreService) {
     this.listFiles = [];
   }
 
   ngOnInit() {
     this.listFiles = this.storeService.getUploadFile();
-    this.helperService.getData()
+    this.requestService.getData()
       .then((data)=>{
           console.log(data, typeof data);
           let arrayData = data;
@@ -30,7 +31,7 @@ export class ListProcessedFilesComponent implements OnInit {
   }
 
   download(fileInform){
-    this.helperService.askADownload(fileInform);
+    this.requestService.askADownload(fileInform);
     console.log('Должны скачать вот этот файл из сервера', fileInform);
   }
 

@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { FormLoadComponent } from './form-load/form-load.component';
 
-import { HelperService } from "./shared/helper.service";
+import { RequestService } from "./shared/request.service";
 import { StoreService } from './shared/store.service';
 
 
@@ -30,7 +30,7 @@ import { UploadFileItemComponent } from './list-processed-files/upload-file-item
     FormsModule,
     HttpModule
   ],
-  providers: [HelperService, StoreService],
+  providers: [RequestService, StoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

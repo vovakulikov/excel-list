@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HelperService } from '../shared/helper.service';
+import { RequestService } from '../shared/request.service';
 
 import { StoreService } from '../shared/store.service';
 
@@ -14,7 +14,7 @@ export class FormLoadComponent implements OnInit {
   correctFiles: File[];
   uncorrectFiles: File[];
 
-  constructor(private helpService: HelperService,private storeService: StoreService ){
+  constructor(private requestService: RequestService,private storeService: StoreService ){
     this.correctFiles = [];
     this.uncorrectFiles = [];
   }
@@ -22,7 +22,7 @@ export class FormLoadComponent implements OnInit {
 
   onSubmit(evt){
     let files = this.storeService.getFiles();
-    this.helpService._Submit(files)
+    this.requestService._Submit(files)
       .then((files)=>{
           console.log('Данные пришедшие после отравки данных на сервер',files)
           this.storeService.addServerFile(files);
@@ -36,6 +36,6 @@ export class FormLoadComponent implements OnInit {
     console.log('Тащим из сервиса только что пришедшие даннцые',this.storeService.getFiles())
   }
   onClickGetData(){
-    this.helpService.getData();
+    this.requestService.getData();
   }
 }
