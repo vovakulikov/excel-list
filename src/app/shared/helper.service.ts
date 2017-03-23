@@ -1,52 +1,64 @@
 import { Injectable } from '@angular/core';
-
+import * as FileSaver from "file-saver";
 
 @Injectable()
 export class HelperService {
 
   constructor() { }
-  logg(fileInput){
-    console.log('Это было выведено из сервиса', fileInput);
-  };
 
-  checkTypeOfFile(type,file){
 
-    if (!file.name.match(`${type}.*`)) {
-      return false;
-    }
-    return true;
-  }
-
-  checkGroupFiles(evt){
-
-    let files = (evt.type == "change") ? evt.target.files : evt.dataTransfer.files;
-    let formData:any = new FormData();
-
-    let filesArray = [].slice.call(files)
-    let uncorrectFiles = filesArray.filter((item)=>{
-      let check = this.checkTypeOfFile('xlsx',item);
-      if(check)
-        formData.append('uploadFiles',item,item.name);
-      return !check;
-    })
-    console.log('From formData, correct files',formData.getAll('uploadFiles'));
-    console.log('Uncorrect files', uncorrectFiles)
-
-    return [formData.getAll('uploadFiles'),uncorrectFiles]
-  }
-  _Submit(files:[File]){
+  _Submit(files){
     console.log('Нажали кнопку отправкли, ждем ответа от сервера',files)
-
-    this.makeFileRequest('http://localhost:3000/api/upload',[],files)
+    return this.makeFileRequest('http://localhost:3000/api/upload',{
+      method: 'POST'
+    },files)
       .then((result) => {
           console.log(result);
+          return Promise.resolve(result);
         }, (error) => {
           console.log(error);
         });
-
-
   }
-  makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
+  askADownload(file){
+    this.request(`http://localhost:3000/api/download/${file.fileName}`,'GET')
+    /*return this.makeFileRequest(`http://localhost:3000/api/download/${file.fileName}`,{
+      method: 'GET'
+    },[]);*/
+  }
+  getData(){
+    console.log('Попросили у сервера данные')
+    return this.makeFileRequest('http://localhost:3000/api/docs',{
+      method: 'GET'
+    },[]);
+  }
+  request(url,method){
+    var BlobBuilder = window.Blob;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.responseType = "blob";
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          console.log('Ответ от сервера по запросу на файл',xhr.response)
+
+          //var blob = new Blob([xhr.response], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+          /*console.log(blob)
+          var reader = new FileReader();
+          console.log(reader.readAsArrayBuffer(blob))*/
+          FileSaver.saveAs(xhr.response, "export.xls");
+
+
+          var reader = new FileReader();
+          console.log(reader.readAsArrayBuffer(xhr.response))
+        } else {}
+      }
+    }
+
+    xhr.send();
+  }
+  makeFileRequest(url: string, params, files) {
     return new Promise((resolve, reject) => {
       var formData: any = new FormData();
       var xhr = new XMLHttpRequest();
@@ -56,13 +68,14 @@ export class HelperService {
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if (xhr.status == 200) {
-            resolve(xhr.response);
+            console.log(xhr.response)
+            resolve(JSON.parse(xhr.response));
           } else {
             reject(xhr.response);
           }
         }
       }
-      xhr.open("POST", url, true);
+      xhr.open(params.method, url, true);
       xhr.send(formData);
     });
   }
