@@ -67,3 +67,8 @@ exports.getAll = function(cb){
       cb(data);
     })
 }
+
+exports.getAFile = function(reqBody,cb){
+  let path = './../storeFiles/' + reqBody.id;
+  cb(path);
+}

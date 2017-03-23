@@ -11,6 +11,6 @@ const config = {
     storageBucket: "excel-list.appspot.com",
     messagingSenderId: "404882626777"
   }
-}
+};
 
 exports.config = config;
