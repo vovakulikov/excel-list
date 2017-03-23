@@ -1,0 +1,26 @@
+.load-section__name{
+  line-height: 20px;
+}
+
+.load-section__form{
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-top:20px;
+}
+
+.load-section__form__input-file{
+  display: none;
+}
+.load-section__form__label-file,
+.load-section__form__submit-button{
+  background: gainsboro;
+  padding:7px 10px;
+  display: inline-block;
+  margin-right:20px;
+}
+
+.load-section__form__submit-button_disabled{
+  background: ghostwhite;
+  opacity: 0.6;
+}
