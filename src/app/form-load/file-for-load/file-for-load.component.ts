@@ -13,7 +13,6 @@ export class FileForLoadComponent implements OnInit {
 
   ngOnInit() {
     this.fileForLoad = this.storeService.getFiles();
-    console.log(this.fileForLoad)
   }
 
   delete(event){

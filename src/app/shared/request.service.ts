@@ -6,9 +6,8 @@ import * as FileSaver from "file-saver";
 export class RequestService {
   constructor() { }
 
-  _Submit(files){
-    console.log('Нажали кнопку отправкли, ждем ответа от сервера',files)
-    return this.makeFileRequest('http://localhost:3000/api/upload',{
+  _Submit(files:File[]){
+    return this.makeRequest('http://localhost:3000/api/upload',{
       method: 'POST'
     },files)
       .then((result) => {
@@ -22,12 +21,12 @@ export class RequestService {
     this.makeDownloadRequest(`http://localhost:3000/api/download/${file.fileName}`,'GET')
       .then((buffer) => {
         const blob = new Blob([buffer], {});
+
         FileSaver.saveAs(blob, file.fileName);
       })
   }
   getData(){
-    console.log('Попросили у сервера данные')
-    return this.makeFileRequest('http://localhost:3000/api/docs',{
+    return this.makeRequest('http://localhost:3000/api/docs',{
       method: 'GET'
     },[]);
   }
@@ -50,13 +49,16 @@ export class RequestService {
       xhr.send();
     })
   }
-  makeFileRequest(url: string, params, files: File[]) {
+
+  makeRequest(url: string, params, files: File[]) {
     return new Promise((resolve, reject) => {
       const formData: FormData = new FormData();
       const xhr = new XMLHttpRequest();
+
       for(let i = 0; i < files.length; i++) {
         formData.append("uploads", files[i], files[i].name);
       }
+
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if (xhr.status == 200) {
@@ -66,6 +68,7 @@ export class RequestService {
           }
         }
       }
+
       xhr.open(params.method, url, true);
       xhr.send(formData);
     });

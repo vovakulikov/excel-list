@@ -22,17 +22,12 @@ export class ListProcessedFilesComponent implements OnInit {
     this.listFiles = this.storeService.getUploadFile();
     this.requestService.getData()
       .then((data)=>{
-          console.log(data, typeof data);
-          let arrayData = data;
-          this.storeService.addServerFile(arrayData);
-
-
+          this.storeService.addServerFile(data);
       });
   }
 
   download(fileInform){
     this.requestService.askADownload(fileInform);
-    console.log('Должны скачать вот этот файл из сервера', fileInform);
   }
 
 }

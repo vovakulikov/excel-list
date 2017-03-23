@@ -21,21 +21,17 @@ export class FormLoadComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(evt){
-    let files = this.storeService.getFiles();
+    let files:File[] = this.storeService.getFiles();
     this.requestService._Submit(files)
-      .then((files)=>{
-          console.log('Данные пришедшие после отравки данных на сервер',files)
+      .then((files:Object[])=>{
           this.storeService.addServerFile(files);
       })
-    this.storeService.removeAll();
+    this.storeService.removePreloadFiles();
   }
   onChange(fileInput){
-    this.storeService.removeAll();
+    this.storeService.removePreloadFiles();
     [this.correctFiles,this.uncorrectFiles] = this.storeService.checkGroupFiles(fileInput);
     this.storeService.addData(this.correctFiles);
-    console.log('Тащим из сервиса только что пришедшие даннцые',this.storeService.getFiles())
   }
-  onClickGetData(){
-    this.requestService.getData();
-  }
+
 }

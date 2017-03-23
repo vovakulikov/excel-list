@@ -5,7 +5,6 @@ export class StoreService {
 
   correctFiles: File[];
   uncorrectFiles: File[];
-
   uploadedFile: Object[];
 
   constructor() {
@@ -13,8 +12,6 @@ export class StoreService {
     this.uncorrectFiles = [];
     this.uploadedFile = [];
   }
-
-
 
   checkTypeOfFile(type,file){
     if (!file.name.match(`${type}.*`)) {
@@ -25,15 +22,16 @@ export class StoreService {
   checkGroupFiles(evt){
     let files = (evt.type == "change") ? evt.target.files : evt.dataTransfer.files;
     let formData:any = new FormData();
-
     let filesArray = [].slice.call(files);
-    let uncorrectFiles = filesArray.filter((item)=>{
-      let check = this.checkTypeOfFile('xlsx',item);
+    let check,uncorrectFiles;
+
+    uncorrectFiles = filesArray.filter((item)=>{
+      check = this.checkTypeOfFile('xlsx',item);
       if(check)
         formData.append('uploadFiles',item,item.name);
       return !check;
     });
-    //[this.correctFiles,this.uncorrectFiles] = [formData.getAll('uploadFiles'),uncorrectFiles];
+
     return [formData.getAll('uploadFiles'),uncorrectFiles]
   }
 
@@ -45,7 +43,7 @@ export class StoreService {
       this.correctFiles.push(file);
     })
   }
-  removeAll(){
+  removePreloadFiles(){
     this.correctFiles.splice(0, this.correctFiles.length);
   }
   removeFile(file){
@@ -56,19 +54,18 @@ export class StoreService {
     }
   }
 
-
   addFiles(files:File[]){
     files.forEach((file:File)=>{
       this.correctFiles.push(file);
     })
   }
+
+
   addServerFile(files){
     files.forEach((file:File)=>{
       this.uploadedFile.push(file);
     })
-    console.log('Загруженные файлы после обновления',this.uploadedFile)
   }
-
   getUploadFile(){
     return this.uploadedFile;
   }
