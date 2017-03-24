@@ -4,7 +4,7 @@
 
 let XLSX = require('xlsx')
 let fb = require('../db.js')
-let utils = require('../Utils.js')
+let utils = require('../utils.js')
 
 function readXLSX (files) {
   let data = []
