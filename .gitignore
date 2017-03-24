@@ -41,8 +41,13 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# EXCEl file on server
-/server/storeFiles
+
+# exclude everything
+/server/storeFiles/*
+
+# exception to the rule
+!server/storeFiles/.gitkeep
 
 # npm-log
 npm-debug.log.3890822464
+/server/storeFiles/*.xlsx
