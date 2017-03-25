@@ -1,7 +1,7 @@
 /**
  * Created by Vova on 21.03.2017.
  */
-const multer = require('multer')
+const multer = require('multer');
 
 const config = {
   _distPath: './server/storeFiles/',
@@ -12,6 +12,7 @@ const config = {
     storageBucket: 'excel-list.appspot.com',
     messagingSenderId: '404882626777'
   },
+  //todo: в конфиге не должно быть функций, только константы, попробуй вынести
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, config._distPath)
@@ -20,6 +21,6 @@ const config = {
       cb(null, Date.now() + '-' + file.originalname)
     }
   })
-}
+};
 
-exports.config = config
+exports.config = config;

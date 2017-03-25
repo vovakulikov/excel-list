@@ -15,7 +15,7 @@ export class FileForLoadComponent implements OnInit {
     this.fileForLoad = this.storeService.getFiles();
   }
 
-  delete(event){
+  deleteFile(event) {
     this.storeService.removeFile(event);
   }
 

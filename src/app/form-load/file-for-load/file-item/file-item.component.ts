@@ -7,14 +7,14 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 })
 export class FileItemComponent implements OnInit {
   @Input() file: File;
-  @Output() delete = new EventEmitter()
+  @Output() deleteFile = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
 
-  onDelete(){
-    this.delete.emit(this.file)
+  onDelete() {
+    this.deleteFile.emit(this.file);
   }
 
 }

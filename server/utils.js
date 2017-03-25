@@ -3,9 +3,11 @@
  */
 
 exports.serialAsync = function (data, handler) {
-  let promise = Promise.resolve()
+  //todo: what exactly in data? rename parameter. F.E: filesArray
+  let promise = Promise.resolve();
+
   data.forEach(function (file) {
-    promise = promise.then(() => { return handler(file) })
-  })
-  return promise
-}
+    promise = promise.then(() => handler(file));
+  });
+  return promise;
+};

@@ -1,10 +1,10 @@
-
 <section class="excel-list__load-section">
   <h2 class="load-section__name">Select your file</h2>
 
   <form id="form" class="load-section__form" name="files" (ngSubmit)="onSubmit($event)" #formLoad="ngForm">
     <label class="load-section__form__label-file" for="inputFile">Choose a file</label>
-    <input class="load-section__form__input-file" id="inputFile" type="file" name="excel-file" (change)="onChange($event)" multiple required>
+    <input class="load-section__form__input-file" id="inputFile" type="file" name="excel-file"
+           (change)="onChange($event)" multiple required>
     <button class="load-section__form__submit-button" [disabled]="formLoad.form.invalid" type="submit">Load</button>
   </form>
 

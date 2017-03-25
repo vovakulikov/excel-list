@@ -4,6 +4,6 @@
   padding-top:80px;
 }
 .excel-list__name{
-  font-family: "Times New Roman";
+  font-family: "Times New Roman", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 65px;
 }
