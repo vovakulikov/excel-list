@@ -1,5 +1,5 @@
 <div class="processed-file-section__item" (click)="onDownload()">
-  <div class="item__name">{{file.OriginalName}}</div>
+  <div (click)="onClick($event)" class="item__name">{{file.OriginalName}}</div>
   <div class="item__dest">{{file.dest}}</div>
   <div class="item__filename">{{file.fileName}}</div>
   <div class="item__result">{{file.sumOnRow}}</div>

@@ -21,9 +21,13 @@ export class StoreService {
     const files = (evt.type === 'change') ? evt.target.files : evt.dataTransfer.files;
     const formData: any = new FormData();
     const filesArray = [].slice.call(files);
-    let check, uncorrectFiles;
 
-    uncorrectFiles = filesArray.filter(item => {
+    let {uncorrectFiles, correctFiles} = this.separateFiles(filesArray);
+    correctFiles.forEach((file) => {
+      formData.append('uploadFiles', file, file.name);
+    });
+
+    /*uncorrectFiles = filesArray.filter(item => {
       // todo: filter predicate with side effect!
       check = StoreService.checkTypeOfFile('xlsx', item);
 
@@ -32,9 +36,21 @@ export class StoreService {
       }
 
       return !check;
-    });
+    });*/
 
-    return [formData.getAll('uploadFiles'), uncorrectFiles];
+    return [correctFiles, uncorrectFiles];
+  }
+  separateFiles(files){
+    return files.reduce((store, file) => {
+      store.correctFiles = store.correctFiles || [];
+      store.uncorrectFiles = store.uncorrectFiles || [];
+
+      if(StoreService.checkTypeOfFile('xlsx', file))
+        store.correctFiles.push(file);
+      else
+        store.uncorrectFiles.push(file);
+      return store;
+    },{});
   }
 
   getFiles() {
@@ -57,12 +73,6 @@ export class StoreService {
     if (index > -1) {
       this.correctFiles.splice(index, 1);
     }
-  }
-
-  addFiles(files: File[]) {
-    files.forEach((file: File) => {
-      this.correctFiles.push(file);
-    });
   }
 
   addServerFile(files) {

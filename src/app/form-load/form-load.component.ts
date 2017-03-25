@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../shared/request.service';
 import { StoreService } from '../shared/store.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-form-load',
@@ -19,10 +20,15 @@ export class FormLoadComponent implements OnInit {
 
   onSubmit(evt) {
     const files: File[] = this.storeService.getFiles();
-    this.requestService._Submit(files)
+    this.requestService.uploadFiles(files)
+      .subscribe((dataFile:Response) => {
+        console.log(dataFile.json());
+        this.storeService.addServerFile(dataFile.json());
+      })
+    /*this.requestService._Submit(files)
       .then((files: Object[]) => {
           this.storeService.addServerFile(files);
-      });
+      });*/
     this.storeService.removePreloadFiles();
   }
 

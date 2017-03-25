@@ -1,79 +1,46 @@
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 
+import { Http, Headers, ResponseContentType }   from '@angular/http';
+
 // todo: rewrite using Angular's services in @angular/http
 // todo: https://scotch.io/tutorials/angular-2-http-requests-with-observables
 
 @Injectable()
 export class RequestService {
-  constructor() { }
-
-  _Submit(files: File[]) {
-    // todo: what if server adress will change?
-    return this.makeRequest('http://localhost:3000/api/upload', {
-      method: 'POST'
-    }, files)
-      .then((result) => {
-          console.log(result);
-          return Promise.resolve(result);
-        }, (error) => {
-          console.log(error);
-        });
+  address: string;
+  constructor(private http: Http) {
+    this.address = 'http://localhost:3000';
   }
-  askADownload(file) {
-    this.makeDownloadRequest(`http://localhost:3000/api/download/${file.fileName}`, 'GET')
-      .then((buffer) => {
-        const blob = new Blob([buffer], {});
+
+  getListFiles(){
+      const currentAdress = this.address + '/api/docs'
+      return this.http.get(currentAdress);
+  }
+
+  uploadFiles(files: File[]){
+    const currentAddress = this.address+ '/api/upload';
+    const formData: FormData = new FormData();
+
+    files.forEach((file) => {
+      formData.append('uploads', file, file.name);
+    })
+
+    return this.http.post(currentAddress, formData);
+  }
+
+  downloadFile(file){
+    const currentAddress = this.address + `/api/download/${file.fileName}`
+
+    this.http.get(currentAddress, {
+      responseType: ResponseContentType.Blob,
+      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
+    })
+      .subscribe((response) => {
+        let blob = new Blob([response.blob()], {});
 
         FileSaver.saveAs(blob, file.fileName);
-      });
-  }
-  getData() {
-    return this.makeRequest('http://localhost:3000/api/docs', {
-      method: 'GET'
-    }, []);
-  }
-  makeDownloadRequest(url: string, method: string) {
-    console.log('Запустили MakeDownload');
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open(method, url, true);
-      xhr.responseType = 'arraybuffer';
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          }
-        }
-      };
-
-      xhr.send();
-    });
+      })
   }
 
-  makeRequest(url: string, params, files: File[]) {
-    return new Promise((resolve, reject) => {
-      const formData: FormData = new FormData();
-      const xhr = new XMLHttpRequest();
-
-      for (let i = 0; i < files.length; i++) {
-        formData.append('uploads', files[i], files[i].name);
-      }
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.response));
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      xhr.open(params.method, url, true);
-      xhr.send(formData);
-    });
-  }
 }
