@@ -23,24 +23,16 @@ class Firebase {
 
     return new Promise((resolve, reject) => {
       //todo: never rejected? what if fb.database.red ddailed to set data? add catch and reject
+      //solution: add a reject, and add a catch block, but not here. Catch is in controller/excel.js
       this.fb.database().ref('list/' + newPostKey).set(data)
         .then(() => {
           resolve();
+        },() => {
+          reject(data);
         });
     });
   }
 
-  //todo: unused parameter - url
-  update (url, data) {
-    const updates = { url: data };
-
-    return this.fb.database().ref().update(updates);
-  }
-
-  //todo: unused method
-  deleteData (url) {
-    this.update(url, null)
-  }
 }
 
 module.exports = new Firebase(config.firebaseConfig);

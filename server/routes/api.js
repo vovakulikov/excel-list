@@ -5,7 +5,8 @@ const multer = require('multer');
 
 const excelController = require('../controllers/excel.js');
 const config = require('../config').config;
-const upload = multer({ storage: config.storage });
+const multerStorge = require('../multer.config.js').config;
+const upload = multer({ storage: multerStorge.storage });
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -17,11 +18,13 @@ router.use(function (req, res, next) {
 });
 
 router.get('/download/:id', excelController.download);
-router.get('/docs', excelController.get);
+router.get('/docs', excelController.getAll);
 // todo: rename analiz to analyze
 // todo: analyze what? what does analyze do?
-router.post('/upload', upload.array('uploads', 12), excelController.analiz);
+// solution: rename analiz to saveFiles, for understand what exactly does this function
+router.post('/upload', upload.array('uploads'), excelController.saveFiles);
 // todo: 12 is magic number
+// solution: remove 12, Now we can upload no-limit number of file
 
 router.get('/', (req, res) => {
   res.end('api works');

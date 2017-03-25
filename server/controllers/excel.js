@@ -1,26 +1,33 @@
 /**
  * Created by Vova on 21.03.2017.
  */
-
- const Exel = require('../models/excel.js'); //todo: Exel - typo?
+  //todo: Exel - typo?
+  //solution: rename Exel to ExelFileModel
+ const ExelFileModel = require('../models/excel.js');
  const path = require('path');
 
  //todo: rename analiz to analyze
- exports.analiz = function (req, res) {
-   Exel.analiz(req.files, function (data) {
-     res.send(data)
-   })
+ //solution: rename analiz method of ExelFileModel to parseFile
+ exports.saveFiles = function (req, res) {
+   ExelFileModel.parseFile(req.files)
+     .then((data)=>{
+       res.send(data)
+     })
+     .catch((rejectFile) => {
+       console.log(rejectFile);
+       res.status(500).send('При отправке файлов произошла ошибка!');
+     })
  };
 
- exports.get = function (req, res) {
-   Exel.getAll(function (data) {
+ exports.getAll = function (req, res) {
+   ExelFileModel.getAll(function (data) {
      res.send(data)
    })
  };
 
  exports.download = function (req, res) {
-   Exel.getAFile(req.params, function (p) {
-     const currentPath = path.join(__dirname, p);
-     res.download(path.resolve(currentPath));
-   })
+   let currentPath =  ExelFileModel.getAFile(req.params);
+
+   res.download(currentPath);
+
  };
