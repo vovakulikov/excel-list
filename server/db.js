@@ -1,37 +1,46 @@
-const config = require('./config.js').config
-const firebase = require('firebase')
+const config = require('./config.js').config;
+const firebase = require('firebase');
 
 class Firebase {
   constructor (config) {
-    this.fb = firebase.initializeApp(config)
+    this.fb = firebase.initializeApp(config);
   }
 
   getData (url) {
     return this.fb.database().ref(url).once('value')
       .then(function (snapshot) {
-        let list = []
+        const list = [];
+
         snapshot.forEach(function (item) {
           list.push(item.val())
-        })
+        });
         return Promise.resolve(list)
       })
   }
+
   addData (data) {
-    const newPostKey = this.fb.database().ref().push().key
+    const newPostKey = this.fb.database().ref().push().key;
+
     return new Promise((resolve, reject) => {
+      //todo: never rejected? what if fb.database.red ddailed to set data? add catch and reject
       this.fb.database().ref('list/' + newPostKey).set(data)
         .then(() => {
-          resolve()
-        })
-    })
+          resolve();
+        });
+    });
   }
+
+  //todo: unused parameter - url
   update (url, data) {
-    let updates = { url: data }
-    return this.fb.database().ref().update(updates)
+    const updates = { url: data };
+
+    return this.fb.database().ref().update(updates);
   }
+
+  //todo: unused method
   deleteData (url) {
     this.update(url, null)
   }
 }
 
-module.exports = new Firebase(config.firebaseConfig)
+module.exports = new Firebase(config.firebaseConfig);

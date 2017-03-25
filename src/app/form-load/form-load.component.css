@@ -5,8 +5,7 @@
 .load-section__form{
   display: flex;
   flex-wrap: wrap;
-
-  margin-top:20px;
+  margin-top: 20px;
 }
 
 .load-section__form__input-file{

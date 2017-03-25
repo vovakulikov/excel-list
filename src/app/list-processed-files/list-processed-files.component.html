@@ -1,3 +1,4 @@
 <section class="processed-file-section" *ngIf="listFiles.length">
-    <app-upload-file-item *ngFor="let uploadFile of listFiles" (download)="download($event)" [file]="uploadFile"></app-upload-file-item>
+  <app-upload-file-item *ngFor="let uploadFile of listFiles" (download)="download($event)"
+                        [file]="uploadFile"></app-upload-file-item>
 </section>

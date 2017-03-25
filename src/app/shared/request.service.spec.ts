@@ -1,15 +1,14 @@
 import { TestBed, inject } from '@angular/core/testing';
-
-import { HelperService } from './request.service';
+import { RequestService } from './request.service';
 
 describe('HelperService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HelperService]
+      providers: [RequestService]
     });
   });
 
-  it('should ...', inject([HelperService], (service: HelperService) => {
+  it('should ...', inject([RequestService], (service: RequestService) => {
     expect(service).toBeTruthy();
   }));
 });
