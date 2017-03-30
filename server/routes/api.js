@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 
 const excelController = require('../controllers/excel.js');
-const config = require('../config').config;
 const multerStorge = require('../multer.config.js').config;
 const upload = multer({ storage: multerStorge.storage });
 

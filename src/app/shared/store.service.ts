@@ -21,8 +21,8 @@ export class StoreService {
     const files = (evt.type === 'change') ? evt.target.files : evt.dataTransfer.files;
     const formData: any = new FormData();
     const filesArray = [].slice.call(files);
+    const {uncorrectFiles, correctFiles} = this.separateFiles(filesArray);
 
-    let {uncorrectFiles, correctFiles} = this.separateFiles(filesArray);
     correctFiles.forEach((file) => {
       formData.append('uploadFiles', file, file.name);
     });
@@ -45,12 +45,13 @@ export class StoreService {
       store.correctFiles = store.correctFiles || [];
       store.uncorrectFiles = store.uncorrectFiles || [];
 
-      if(StoreService.checkTypeOfFile('xlsx', file))
+      if (StoreService.checkTypeOfFile('xlsx', file)) {
         store.correctFiles.push(file);
-      else
+      } else {
         store.uncorrectFiles.push(file);
+      }
       return store;
-    },{});
+    }, {});
   }
 
   getFiles() {

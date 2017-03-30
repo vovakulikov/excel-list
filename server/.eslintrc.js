@@ -1,3 +1,10 @@
 module.exports = {
-  "extends": ["node-style-guide"]
+  "extends": "eslint:recommended",
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  }
 };
