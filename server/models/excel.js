@@ -10,7 +10,7 @@ const config = require('../config.js');
 
 
 function readXLSX (files) {
-  let data = [];
+  const data = [];
   let infoObject = {};
   let workbook, worksheet, sheetName, xlsxJson, result;
 
@@ -57,7 +57,7 @@ function getSumOnRow (obj) {
   //todo: rename summa to sum or total
   //solution: sum was renamed.
   let total = 0;
-  console.log(obj)
+
   currentRow = getCurrentRow(obj);
   //todo: remove i, ar - unused parameters
   if (!currentRow)
@@ -86,6 +86,11 @@ exports.getAll = function (cb) {
     .then((data) => {
       cb(data)
     })
+
+  fb.getData('mock-r')
+    .then((data) => {
+      console.log('Запрсо заглушка посмотреть что вернет fb при несуществуещем пароле',data);
+  })
 };
 
 exports.getAFile = function (reqBody) {

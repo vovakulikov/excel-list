@@ -13,13 +13,13 @@ export class RequestService {
     this.address = 'http://localhost:3000';
   }
 
-  getListFiles(){
+  getListFiles() {
       const currentAdress = this.address + '/api/docs'
       return this.http.get(currentAdress);
   }
 
-  uploadFiles(files: File[]){
-    const currentAddress = this.address+ '/api/upload';
+  uploadFiles(files: File[]) {
+    const currentAddress = this.address + '/api/upload';
     const formData: FormData = new FormData();
 
     files.forEach((file) => {
@@ -29,8 +29,8 @@ export class RequestService {
     return this.http.post(currentAddress, formData);
   }
 
-  downloadFile(file){
-    const currentAddress = this.address + `/api/download/${file.fileName}`
+  downloadFile(file) {
+    const currentAddress = this.address + `/api/download/${file.fileName}`;
 
     this.http.get(currentAddress, {
       responseType: ResponseContentType.Blob,
@@ -40,7 +40,7 @@ export class RequestService {
         let blob = new Blob([response.blob()], {});
 
         FileSaver.saveAs(blob, file.fileName);
-      })
+      });
   }
 
 }
