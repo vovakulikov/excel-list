@@ -19,6 +19,7 @@ export class FormLoadComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(evt) {
+    console.log(evt)
     const files: File[] = this.storeService.getFiles();
     this.requestService.uploadFiles(files)
       .subscribe((dataFile:Response) => {

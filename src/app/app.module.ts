@@ -12,6 +12,8 @@ import { FileForLoadComponent } from './form-load/file-for-load/file-for-load.co
 import { FileItemComponent } from './form-load/file-for-load/file-item/file-item.component';
 import { ListProcessedFilesComponent } from './list-processed-files/list-processed-files.component';
 import { UploadFileItemComponent } from './list-processed-files/upload-file-item/upload-file-item.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { UploadFileItemComponent } from './list-processed-files/upload-file-item
     FileForLoadComponent,
     FileItemComponent,
     ListProcessedFilesComponent,
-    UploadFileItemComponent
+    UploadFileItemComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
