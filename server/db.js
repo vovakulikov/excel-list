@@ -17,13 +17,29 @@ class Firebase {
         return Promise.resolve(list)
       })
   }
-
+  getUserByUsername(username){
+    console.log('From db.js',username);
+    return this.fb.database().ref('list/'+username).once('value')
+      .then(function (snapshot) {
+        console.log('sdf',snapshot.val())
+        return Promise.resolve(snapshot.val());
+      })
+  }
+  addUser(user){
+    const newPostKey = user['username'];
+    return new Promise((resolve, reject) => {
+      this.fb.database().ref('list/' + newPostKey).set(user)
+        .then(() => {
+          resolve();
+        },() => {
+          reject(user);
+        });
+    });
+  }
   addData (data) {
     const newPostKey = this.fb.database().ref().push().key;
 
     return new Promise((resolve, reject) => {
-      //todo: never rejected? what if fb.database.red ddailed to set data? add catch and reject
-      //solution: add a reject, and add a catch block, but not here. Catch is in controller/excel.js
       this.fb.database().ref('list/' + newPostKey).set(data)
         .then(() => {
           resolve();

@@ -1,12 +1,8 @@
 /**
  * Created by Vova on 21.03.2017.
  */
-  //todo: Exel - typo?
-  //solution: rename Exel to ExelFileModel
  const ExelFileModel = require('../models/excel.js');
 
- //todo: rename analiz to analyze
- //solution: rename analiz method of ExelFileModel to parseFile
  exports.saveFiles = function (req, res) {
    ExelFileModel.parseFile(req.files)
      .then((data) => {

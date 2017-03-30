@@ -87,10 +87,6 @@ exports.getAll = function (cb) {
       cb(data)
     })
 
-  fb.getData('mock-r')
-    .then((data) => {
-      console.log('Запрсо заглушка посмотреть что вернет fb при несуществуещем пароле',data);
-  })
 };
 
 exports.getAFile = function (reqBody) {
