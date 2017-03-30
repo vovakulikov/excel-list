@@ -49,7 +49,7 @@ function getCurrentRow(obj){
     }
   }
 
-  return null;
+  return 0;
 }
 
 function getSumOnRow (obj) {
@@ -60,8 +60,8 @@ function getSumOnRow (obj) {
   console.log(obj)
   currentRow = getCurrentRow(obj);
   //todo: remove i, ar - unused parameters
-  if (!currentRow)
-    return 0;
+  if (!currentRow) return 0;
+
   obj.forEach(function (item) {
     total = total + item[currentRow];
   });
