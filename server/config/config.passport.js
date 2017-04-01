@@ -1,7 +1,7 @@
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
-var UserM  = require('../models/user.js');
-var User = new UserM();
+var User  = require('../models/user.js');
+
 
 module.exports = function(passport){
   var opts = {}
@@ -9,12 +9,12 @@ module.exports = function(passport){
   opts.secretOrKey = 'secret';
   passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
     console.log(jwt_payload);
-    User.getPassToPassport(jwt_payload.username,(err,user) => {
+    User.getPassToPassport(jwt_payload.username,(err,userProfile) => {
       if(err){
         return done(err,false);
       }
-      if(user){
-        return done(null, user);
+      if(userProfile){
+        return done(null, userProfile);
       } else{
         return done(null,false);
       }
