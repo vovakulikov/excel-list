@@ -8,7 +8,9 @@ import { FormLoadComponent } from './form-load/form-load.component';
 import { RequestService } from './shared/request.service';
 import { StoreService } from './shared/store.service';
 import { AuthService } from './shared/auth.service';
+import { ValidateService } from './shared/validate.service';
 
+import { AuthGuard } from './guards/auth.guard';
 
 import { FileForLoadComponent } from './form-load/file-for-load/file-for-load.component';
 import { FileItemComponent } from './form-load/file-for-load/file-item/file-item.component';
@@ -19,6 +21,9 @@ import { LoginComponent } from './login/login.component';
 
 
 import { AppRoutingModule } from './app.routing';
+import { DemoComponent } from './demo/demo.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,10 @@ import { AppRoutingModule } from './app.routing';
     ListProcessedFilesComponent,
     UploadFileItemComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    DemoComponent,
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +45,7 @@ import { AppRoutingModule } from './app.routing';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [RequestService, StoreService, AuthService],
+  providers: [RequestService, StoreService, AuthService, ValidateService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
