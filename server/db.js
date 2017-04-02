@@ -30,14 +30,14 @@ class Firebase {
   updateDocumentUser(username,document){
     this.fb.database().ref(`users/${username.hashCode()}/documents/${document.fileName.hashCode()}`).set(document);
   }
-  getUserByUsername_2(username){
+  getUserByUsername_2(email){
     return new Promise((resolve, reject) => {
-      this.rootRef.child('users').orderByChild('username')
-        .equalTo(username).once('value')
+      this.rootRef.child('users').orderByChild('email')
+        .equalTo(email).once('value')
         .then((snapshot) => {
           let userProfile = snapshot.val();
           console.log(userProfile)
-          if(!userProfile) reject(new Error('User with this username is not exist'))
+          if(!userProfile) reject(new Error('User with this email is not exist'))
           else{
             let keyUser = Object.keys(userProfile);
             resolve(userProfile[keyUser[0]])
@@ -54,7 +54,7 @@ class Firebase {
     return newUserRef.set(user);
   }
   addUser_3(user){
-    return this.fb.database().ref(`users/${user.username.hashCode()}`).set(user);
+    return this.fb.database().ref(`users/${user.email.hashCode()}`).set(user);
   }
 
 

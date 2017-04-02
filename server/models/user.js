@@ -4,7 +4,7 @@ class User {
   constructor(){}
 
   register(user){
-    return fb.getUserByUsername_2(user.username)
+    return fb.getUserByUsername_2(user.email)
       .then(() => {
         throw new Error('Пользователь с таким именем уже есть в базе');
       },() => {
@@ -12,8 +12,8 @@ class User {
       })
   }
 
-  getUserByUsername(username){
-    return  fb.getUserByUsername_2(username)
+  getUserByUsername(email){
+    return  fb.getUserByUsername_2(email)
   }
 
   comparePassword_2(passReq, user){
@@ -26,8 +26,8 @@ class User {
     })
   }
 
-  getPassToPassport(username, cb){
-    this.getUserByUsername(username)
+  getPassToPassport(email, cb){
+    this.getUserByUsername(email)
       .then((user)=>{
             cb(false,user);
       })

@@ -19,13 +19,15 @@ exports.getProfile = function (req,res) {
 
 exports.registerUser = function(req, res) {
   const user = {
-    username: req.body.username,
-    password: req.body.password
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
   };
 
   UserModel.register(user)
     .then(() => {
-      fs.mkdirSync(dir+`/${user.username}`);
+      fs.mkdirSync(dir+`/${user.email}`);
       res.json({succsess: true, msg: 'user registered', user: user})
     })
     .catch((error) => {
@@ -34,10 +36,11 @@ exports.registerUser = function(req, res) {
 }
 
 exports.authUser = function(req,res){
-  const username = req.body.username;
+
+  const email = req.body.email;
   const password = req.body.password;
 
-  UserModel.getUserByUsername(username)
+  UserModel.getUserByUsername(email)
     .then((user)=>{
       return UserModel.comparePassword_2(password, user);
     })
