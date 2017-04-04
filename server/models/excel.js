@@ -78,8 +78,12 @@ exports.parseFile = function (files) {
     return fb.addData(file);
   }).then(() => {
       return Promise.resolve(data);
-    })
+  })
 };
+
+exports.parsingFiles = function(files){
+  return readXLSX(files);
+}
 
 exports.getAll = function (cb) {
   fb.getData('list')

@@ -1,15 +1,16 @@
-var JwtStrategy = require('passport-jwt').Strategy;
-var ExtractJwt = require('passport-jwt').ExtractJwt;
-var User  = require('../models/user.js');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const User  = require('../models/user.js');
 
 
 module.exports = function(passport){
-  var opts = {}
+  const opts = {};
+
   opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
   opts.secretOrKey = 'secret';
   passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    console.log(jwt_payload);
     User.getPassToPassport(jwt_payload.email,(err,userProfile) => {
+
       if(err){
         return done(err,false);
       }
@@ -18,6 +19,7 @@ module.exports = function(passport){
       } else{
         return done(null,false);
       }
+
     })
   }));
 };

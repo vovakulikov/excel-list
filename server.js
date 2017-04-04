@@ -1,19 +1,19 @@
-var express = require('express');
-var http = require('http');
-var path = require('path');
-var compression = require('compression');
-var cors = require('cors');
-var passport = require('passport');
+const express = require('express');
+const http = require('http');
+const path = require('path');
+const compression = require('compression');
+const cors = require('cors');
+const passport = require('passport');
 const bodyParser = require('body-parser');
 
 const app = express();
-
 const api = require('./server/routes/api');
 const user = require('./server/routes/user');
 
+app.set('port',3000);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('port',3000);
 app.use(compression());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -22,7 +22,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./server/config/config.passport')(passport);
-
 
 app.use('/users', user);
 app.use('/api', api);

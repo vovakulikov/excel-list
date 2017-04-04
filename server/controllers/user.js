@@ -1,18 +1,46 @@
 const UserModel = require('../models/user.js');
 const jwt = require('jsonwebtoken');
-var fs = require('fs');
-var dir = './server/storeFiles/registered';
+const fs = require('fs');
+const dir = './server/storeFiles/registered';
+const excelModel = require('../models/excel.js');
+const utils = require('../utils.js');
+const fb = require('../db.js');
+
+
+exports.download = function (req, res){
+  const currentPath = UserModel.getFile(req);
+
+  res.download(currentPath);
+};
+
+exports.uploadFile = function(req,res){
+  const dataAboutFiles = excelModel.parsingFiles(req.files);
+
+  utils.serialAsync(dataAboutFiles, function (file) {
+    return fb.addDocumentsToUser(req.user, file);
+  })
+    .then(() => {
+      res.send({data : dataAboutFiles});
+    }).catch (() => {
+      res.status(500).send('При отправке файлов произошла ошибка!');
+    });
+
+};
 
 exports.getDocs = function (req,res) {
-  res.json({user: req.user, dosc: {
-    document:" this will be dated a docs"
-  }});
-}
+    fb.getData('/users/'+utils.hash(req.user.email)+'/documents/')
+      .then(data => {
+         res.json(data);
+      })
+      .catch(() => {
+        res.json({
+          success: false,
+          msg: 'При получение файлов произошла ошибка'
+        });
+      })
+};
 
 exports.getProfile = function (req,res) {
-  console.log(req)
-  console.log('Наш юзер',req.user);
-
   res.json({user: req.user});
 }
 
@@ -28,10 +56,10 @@ exports.registerUser = function(req, res) {
   UserModel.register(user)
     .then(() => {
       fs.mkdirSync(dir+`/${user.email}`);
-      res.json({succsess: true, msg: 'user registered', user: user})
+      res.json({success: true, msg: 'user registered', user: user})
     })
     .catch((error) => {
-      res.json({succsess: false, msg: error.message})
+      res.json({success: false, msg: error.message})
     })
 }
 
@@ -42,19 +70,19 @@ exports.authUser = function(req,res){
 
   UserModel.getUserByUsername(email)
     .then((user)=>{
-      return UserModel.comparePassword_2(password, user);
+      return UserModel.comparePassword(password, user);
     })
     .then((user) => {
       const token = jwt.sign(user, 'secret', {
         expiresIn: 604800
       });
-      res.json({succsess: true,
+      res.json({success: true,
         token:'JWT '+token,
         user: user
       });
     })
     .catch((error) => {
-      console.log('This is from catch block ', error)
-      res.json({succsess: false,anotherField:'sdfsd', msg: error.message});
+      res.json({success: false,anotherField:'sdfsd', msg: error.message});
     })
 }
+
