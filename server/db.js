@@ -1,6 +1,6 @@
 const config = require('./config.js').config;
 const firebase = require('firebase');
-const utils = require('./utils')
+const utils = require('./utils');
 
 class Firebase {
   constructor (config) {
@@ -28,7 +28,7 @@ class Firebase {
         .equalTo(email).once('value')
         .then((snapshot) => {
           let userProfile = snapshot.val();
-          if(!userProfile) reject(new Error('User with this email is not exist'))
+          if(!userProfile) reject(new Error('User with this email is not exist'));
           else{
             let keyUser = Object.keys(userProfile);
             resolve(userProfile[keyUser[0]])
