@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../shared/auth.service";
 import { Router } from '@angular/router';
+import { FlashMessagesService } from '../shared/flash-messages.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit {
   email:string;
   password:string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService,
+              private router: Router, private flashMessages: FlashMessagesService) { }
 
   ngOnInit() {
   }
@@ -28,17 +30,16 @@ export class RegisterComponent implements OnInit {
       email: this.email,
       password: this.password
     }
-    console.log(user);
-
 
     this.authService.registerUser(user).subscribe(data => {
-      console.log(data);
-      if(data.succsess){
+      if(data.success){
+        this.flashMessages.addMessege('Now you are registered, please authorization ')
         this.router.navigate(['/login'])
-      }
-      else{
+      } else{
         console.log('Something goes wrong :(');
+        console.log(data)
       }
     })
+
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ValidateService } from './../shared/validate.service';
-import { AuthService } from './../shared/auth.service';
+import { AuthService } from '../shared/auth.service';
 import { Router } from "@angular/router"
+import { FlashMessagesService } from '../shared/flash-messages.service';
 
 @Component({
   selector: 'app-login',
@@ -13,34 +13,32 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor(private validateService: ValidateService, private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService,
+              private router: Router,
+              private FlashMessage: FlashMessagesService) { }
 
   ngOnInit() {
-    console.log('Форма отрисовалась ')
   }
 
   onSubmit(event){
     event.preventDefault();
-    console.log('Форма была отправлена',event);
-    console.log('Данные пользователя при логине ', this.email,' ',this.password)
-
     const user = {
       email: this.email,
       password: this.password
-    }
-
-    console.log(user)
-  //  console.log(this.validateService.validateLogin(user));
-
+    };
 
     this.authService.authenticateUser(user).subscribe(data => {
       console.log(data)
-
-      if(data.succsess){
+      if(data.success){
         this.authService.storeUserData(data.token, data.user);
-        this.router.navigate(['profile'])
+        this.router.navigate(['profile']);
+        this.FlashMessage.removeMessage();
+      } else{
+        console.log('We have a error and now we will update flash messege')
+        this.FlashMessage.addMessege(data.msg);
       }
     })
+
   }
 
 }

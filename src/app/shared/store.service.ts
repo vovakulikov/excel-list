@@ -16,7 +16,7 @@ export class StoreService {
     this.uncorrectFiles = [];
     this.uploadedFile = [];
   }
-
+  //validation file, only xslx format;
   checkGroupFiles (evt) {
     const files = (evt.type === 'change') ? evt.target.files : evt.dataTransfer.files;
     const formData: any = new FormData();
@@ -27,19 +27,9 @@ export class StoreService {
       formData.append('uploadFiles', file, file.name);
     });
 
-    /*uncorrectFiles = filesArray.filter(item => {
-      // todo: filter predicate with side effect!
-      check = StoreService.checkTypeOfFile('xlsx', item);
-
-      if (check) {
-        formData.append('uploadFiles', item, item.name);
-      }
-
-      return !check;
-    });*/
-
     return [correctFiles, uncorrectFiles];
   }
+
   separateFiles(files){
     return files.reduce((store, file) => {
       store.correctFiles = store.correctFiles || [];
@@ -54,6 +44,8 @@ export class StoreService {
     }, {});
   }
 
+
+  //methods to working for file which select to download to server
   getFiles() {
     return this.correctFiles;
   }
@@ -76,6 +68,9 @@ export class StoreService {
     }
   }
 
+
+
+  //list of file which already uploaded.
   addServerFile(files) {
     files.forEach((file: File) => {
       this.uploadedFile.push(file);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { RequestService } from '../shared/request.service';
 import { StoreService } from '../shared/store.service';
 import { Response } from '@angular/http';
@@ -9,27 +9,21 @@ import { Response } from '@angular/http';
   styleUrls: ['./form-load.component.css']
 })
 export class FormLoadComponent implements OnInit {
+  @Output() loadFileHook = new EventEmitter();
   correctFiles: File[];
   uncorrectFiles: File[];
+  constructor( private requestService: RequestService,
+               private storeService: StoreService ) {
 
-  constructor(private requestService: RequestService, private storeService: StoreService ) {
     this.correctFiles = [];
     this.uncorrectFiles = [];
   }
+
   ngOnInit() {}
 
   onSubmit(evt) {
-    console.log(evt)
     const files: File[] = this.storeService.getFiles();
-    this.requestService.uploadFiles(files)
-      .subscribe((dataFile:Response) => {
-        console.log(dataFile.json());
-        this.storeService.addServerFile(dataFile.json());
-      })
-    /*this.requestService._Submit(files)
-      .then((files: Object[]) => {
-          this.storeService.addServerFile(files);
-      });*/
+    this.loadFileHook.emit(files);
     this.storeService.removePreloadFiles();
   }
 
