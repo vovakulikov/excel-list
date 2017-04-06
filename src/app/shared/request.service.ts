@@ -48,35 +48,4 @@ export class RequestService {
       });
   }
 
-
- /* getListFiles() {
-      const currentAdress = this.address + '/api/docs'
-      return this.http.get(currentAdress)
-  }
-
-  uploadFiles(files: File[]) {
-    const currentAddress = this.address + '/api/upload';
-    const formData: FormData = new FormData();
-
-    files.forEach((file) => {
-      formData.append('uploads', file, file.name);
-    })
-
-    return this.http.post(currentAddress, formData);
-  }
-
-  downloadFile(file) {
-    const currentAddress = this.address + `/api/download/${file.fileName}`;
-
-    this.http.get(currentAddress, {
-      responseType: ResponseContentType.Blob,
-      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
-    })
-      .subscribe((response) => {
-        let blob = new Blob([response.blob()], {});
-
-        FileSaver.saveAs(blob, file.fileName);
-      });
-  }*/
-
 }

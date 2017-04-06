@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { RequestService } from '../shared/request.service';
 import { StoreService } from '../shared/store.service';
-import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-form-load',
@@ -9,6 +8,7 @@ import { Response } from '@angular/http';
   styleUrls: ['./form-load.component.css']
 })
 export class FormLoadComponent implements OnInit {
+
   @Output() loadFileHook = new EventEmitter();
   correctFiles: File[];
   uncorrectFiles: File[];

@@ -1,4 +1,3 @@
-
 module.exports = function(io){
 
   const UserModel = require('../models/user.js');
@@ -8,8 +7,7 @@ module.exports = function(io){
   const excelModel = require('../models/excel.js');
   const utils = require('../utils.js');
   const fb = require('../db.js');
-  const Validator = require('jsonschema').Validator;
-  const v = new Validator();
+
 
   exports.download = function (req, res){
     const currentPath = UserModel.getFile(req);
@@ -19,13 +17,11 @@ module.exports = function(io){
 
   exports.uploadFile = function(req,res){
     const dataAboutFiles = excelModel.parsingFiles(req.files);
-
     utils.serialAsync(dataAboutFiles, function (file) {
       return fb.addDocumentsToUser(req.user, file);
-    })
-      .then(() => {
-        res.send({data : dataAboutFiles});
-        io.emit(req.user.email, {data : dataAboutFiles});
+    }).then(() => {
+        res.send({documentInfo : dataAboutFiles});
+        io.emit(req.user.email, {documentInfo : dataAboutFiles});
       }).catch (() => {
       res.status(500).send('При отправке файлов произошла ошибка!');
     });
@@ -33,7 +29,7 @@ module.exports = function(io){
   };
 
   exports.getDocs = function (req,res) {
-    fb.getData('/users/'+utils.hash(req.user.email)+'/documents/')
+    fb.getDocuments('/users/'+utils.hash(req.user.email)+'/documents/')
       .then(data => {
         res.json(data);
       })
@@ -42,14 +38,14 @@ module.exports = function(io){
           success: false,
           msg: 'При получение файлов произошла ошибка'
         });
-      })
+      });
   };
 
   exports.getProfile = function (req,res) {
     res.json({email: req.user.email,
       firstName: req.user.firstName,
       lastName: req.user.lastName});
-  }
+  };
 
 
   exports.registerUser = function(req, res) {
@@ -60,27 +56,15 @@ module.exports = function(io){
       password: req.body.password,
     };
 
-    let shcema = {
-      "type":"object",
-      "properties": {
-        "firstName": {"type": "string"},
-        "lastName": {"type": "string"},
-        "password": {"type": "string"},
-        "email": {"type": "string", "format": "email"}
-      }
-    }
-    //console.log('Validate by schema',v.validate(user, shcema));
-
-
     UserModel.register(user)
       .then(() => {
         fs.mkdirSync(dir+`/${user.email}`);
-        res.json({success: true, msg: 'user registered', user: user})
+        res.json({success: true, msg: 'user registered', user: user});
       })
       .catch((error) => {
-        res.json({success: false, msg: error.message})
-      })
-  }
+        res.json({success: false, msg: error.message});
+      });
+  };
 
   exports.authUser = function(req,res){
 
@@ -103,10 +87,10 @@ module.exports = function(io){
       })
       .catch((error) => {
         res.json({success: false,anotherField:'sdfsd', msg: error.message});
-      })
-  }
+      });
+  };
 
 
   return exports;
-}
+};
 

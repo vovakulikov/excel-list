@@ -14,11 +14,7 @@ export class UploadFileItemComponent implements OnInit {
 
   ngOnInit() {
   }
-  onClick(e){
-    e.stopImmediatePropagation();
-    console.log(e)
-    console.log('Click on name field')
-  }
+
   onDownload() {
     this.download.emit(this.file);
   }

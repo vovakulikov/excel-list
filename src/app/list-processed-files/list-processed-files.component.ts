@@ -17,12 +17,10 @@ export class ListProcessedFilesComponent implements OnInit {
 
   ngOnInit() {
     this.listFiles = this.storeService.getUploadFile();
-
-    this.requestService.getUserListFile().subscribe(data => {
-      this.storeService.addServerFile(data);
+    this.requestService.getUserListFile().subscribe(files => {
+      this.storeService.addServerFile(files);
     })
   }
-
   download(fileInform) {
     this.requestService.downloadUserFile(fileInform);
   }

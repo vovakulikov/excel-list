@@ -9,18 +9,15 @@ import { FlashMessagesService } from '../shared/flash-messages.service';
   styleUrls: ['register.component.css','../shared/css/controlls.css']
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent{
   firstName:string;
   lastName:string;
   email:string;
   password:string;
 
   constructor(private authService: AuthService,
-              private router: Router, private flashMessages: FlashMessagesService) { }
-
-  ngOnInit() {
-  }
-
+              private router: Router,
+              private flashMessages: FlashMessagesService) { }
 
   onSubmit(event){
     event.preventDefault();
@@ -30,7 +27,7 @@ export class RegisterComponent implements OnInit {
       lastName: this.lastName,
       email: this.email,
       password: this.password
-    }
+    };
 
     this.authService.registerUser(user).subscribe(response => {
       if(response.success){
@@ -40,6 +37,7 @@ export class RegisterComponent implements OnInit {
         });
         this.router.navigate(['/login'])
       } else{
+        //Здесь будет выводится сообщение об ошибке в flash message
         console.log('Something goes wrong :(');
         console.log(response)
       }

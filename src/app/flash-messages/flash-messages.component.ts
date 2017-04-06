@@ -17,13 +17,11 @@ export class FlashMessagesComponent{
   constructor(private flashMessage: FlashMessagesService) {
 
     this.stream = this.flashMessage.getStreamMessage();
-
     [this.message, this.typeClass] = this.flashMessage.getMessage();
 
     this.stream.subscribe( Modal => {
       this.message = Modal.message;
       this.typeClass = Modal.type;
-      console.log(this.message)
     })
   }
 
@@ -31,7 +29,6 @@ export class FlashMessagesComponent{
 
   }
   ngOnDestroy(){
-    console.log('Destroy flash message component')
     this.flashMessage.removeMessage();
   }
 }

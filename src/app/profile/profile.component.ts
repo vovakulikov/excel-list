@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService,
               private reqService: RequestService,
               private storeService: StoreService ) {
+
     this.storeService.clearUploadServerFiles();
   }
 
@@ -22,9 +23,9 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile;
 
-      this.socket.on(this.user['email'],(data) => {
-        console.log('Из сокета ',data);
-        this.storeService.addServerFile(data.data);
+      this.socket.on(this.user['email'],(documents) => {
+        console.log('Из сокета ',documents);
+        this.storeService.addServerFile(documents.documentInfo);
       })
 
     });
@@ -35,12 +36,12 @@ export class ProfileComponent implements OnInit {
     });
 
   }
-  ngOnDestroy(){
-
-  }
   uploadFile(files){
     this.reqService.uploadUserFiles(files).subscribe(uploadedFile => {
       //this.storeService.addServerFile(uploadedFile.data);
+      //Раньше здесь добавлялись ответы полсе обработки файлов.
+      //Сейчас используется socket io.
+      //Позже этот запрос будет работать на socket io
     });
 
   }

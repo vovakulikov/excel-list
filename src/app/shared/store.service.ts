@@ -68,8 +68,6 @@ export class StoreService {
     }
   }
 
-
-
   //list of file which already uploaded.
   addServerFile(files) {
     console.log('Add a new files  ',files)

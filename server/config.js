@@ -1,8 +1,3 @@
-/**
- * Created by Vova on 21.03.2017.
- */
-
-
 const config = {
   _distPath: './server/storeFiles/',
   firebaseConfig: {

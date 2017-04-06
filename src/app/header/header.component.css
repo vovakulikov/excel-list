@@ -1,11 +1,11 @@
 .excel-list__header{
-  widht:100%;
-  background:#000;
+  widht: 100%;
+  background: #000;
   height: 54px;
 }
 
 .header-wrap{
-  max-width:900px;
+  max-width: 900px;
   margin: 0 auto;
   display: flex;
   height: 100%;
@@ -20,14 +20,14 @@
   align-items: center;
 }
 .name__logo{
-  width:40px;
-  fill:wheat;
+  width: 40px;
+  fill: wheat;
 }
 .name__text{
   text-decoration: none;
   font-size: 25px;
-  color:wheat;
-  margin-left:15px;
+  color: wheat;
+  margin-left: 15px;
 }
 .header__auth-controllers{
   margin-left: auto;
@@ -45,7 +45,7 @@
   font-size: 15px;
 }
 .router-link__text{
-  margin-right:3px;
+  margin-right: 3px;
 }
 .svg-icon{
   fill: wheat;

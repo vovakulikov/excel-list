@@ -19,14 +19,7 @@ export class LoginComponent{
     if(this.authService.loggedIn()){
       this.router.navigate([''])
     }
-  }
-  ngOnInit(){
-    console.log('init login')
-  }
-
-  ngOnDestroy(){
-    console.log('Login destroy')
-  }
+  };
 
   onSubmit(event){
     event.preventDefault();
@@ -35,15 +28,15 @@ export class LoginComponent{
       password: this.password
     };
 
-    this.authService.authenticateUser(user).subscribe(data => {
+    this.authService.authenticateUser(user).subscribe(responce => {
 
-      if(data.success){
-        this.authService.storeUserData(data.token, data.user);
+      if(responce.success){
+        this.authService.storeUserData(responce.token, responce.user);
         this.router.navigate(['profile']);
         this.FlashMessage.removeMessage();
       } else {
         this.FlashMessage.addMessege({
-          message: data.msg,
+          message: responce.msg,
           type: 'alert'
         });
       }

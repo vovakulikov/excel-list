@@ -8,18 +8,18 @@ class Firebase {
     this.rootRef = this.fb.database().ref();
   }
 
-  getData (url) {
+  getDocuments (url) {
     return this.fb.database().ref(url).once('value')
       .then((snapshot) => {
         const list = [];
 
         snapshot.forEach(function (item) {
-          list.push(item.val())
+          list.push(item.val());
         });
-        return Promise.resolve(list)
+        return Promise.resolve(list);
       },(error) => {
         throw new Error(error);
-      } )
+      } );
   }
 
   getUserByUsername(email){
@@ -28,14 +28,13 @@ class Firebase {
         .equalTo(email).once('value')
         .then((snapshot) => {
           let userProfile = snapshot.val();
-          //console.log('getUserByUserName db user', userProfile)
           if(!userProfile) {
             reject(new Error('User with this email is not exist'));
           } else {
             let keyUser = Object.keys(userProfile);
-            resolve(userProfile[keyUser[0]])
+            resolve(userProfile[keyUser[0]]);
           }
-        })
+        });
     });
   }
 
@@ -48,13 +47,12 @@ class Firebase {
       this.fb.database().ref(`users/${utils.hash(user.email)}/documents/${utils.hash(document.fileName)}`)
         .set(document)
         .then(() => {
-          resolve()
+          resolve();
         }, () => {
           reject(user);
-        })
-    })
+        });
+    });
   }
-
 }
 
 module.exports = new Firebase(config.firebaseConfig);

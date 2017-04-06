@@ -44,16 +44,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-});
-
-io.use(function(socket, next){
-  console.log('use socket',socket.handshake.headers);
-  next()
-})
-
 server.listen(app.get('port'),function(){
   console.log('Express server listening on port '+ app.get('port'))
 })
