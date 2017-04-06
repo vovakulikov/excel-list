@@ -12,9 +12,10 @@ export class AuthService {
   constructor(private http: Http,
               private router: Router) { }
 
-  registerUser(user){
+  registerUser(user) {
     let headers = new Headers();
-    headers.append('Content-type','application/json');
+
+    headers.append('Content-type', 'application/json');
     return this.http.post('http://localhost:3000/users/register', user, {headers: headers})
       .map(res => res.json());
   }
@@ -26,23 +27,23 @@ export class AuthService {
       .map(res => res.json());
   }
 
-  storeUserData(token, user){
-    localStorage.setItem('id_token',token);
-    localStorage.setItem('user',JSON.stringify(user));
+  storeUserData(token, user) {
+    localStorage.setItem('id_token', token);
+    localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
     this.user = user;
   }
 
-  getProfile(){
+  getProfile() {
     let headers = new Headers();
     this.loadToken();
-    headers.append('Content-type','application/json');
+    headers.append('Content-type', 'application/json');
     headers.append('Authorization', this.authToken);
     return this.http.get('http://localhost:3000/users/profile', {headers: headers})
       .map(res => res.json());
   }
 
-  logout(){
+  logout() {
     this.authToken = null;
     this.user = null;
 
@@ -51,11 +52,11 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
-  loadToken(){
+  loadToken() {
     this.authToken = localStorage.getItem('id_token');
   }
 
-  loggedIn(){
+  loggedIn() {
     return tokenNotExpired();
   }
 }

@@ -1,5 +1,4 @@
 module.exports = function(io){
-
   const UserModel = require('../models/user.js');
   const jwt = require('jsonwebtoken');
   const fs = require('fs');
@@ -7,7 +6,6 @@ module.exports = function(io){
   const excelModel = require('../models/excel.js');
   const utils = require('../utils.js');
   const fb = require('../db.js');
-
 
   exports.download = function (req, res){
     const currentPath = UserModel.getFile(req);
@@ -17,6 +15,7 @@ module.exports = function(io){
 
   exports.uploadFile = function(req,res){
     const dataAboutFiles = excelModel.parsingFiles(req.files);
+
     utils.serialAsync(dataAboutFiles, function (file) {
       return fb.addDocumentsToUser(req.user, file);
     }).then(() => {
@@ -76,10 +75,10 @@ module.exports = function(io){
         return UserModel.comparePassword(password, user);
       })
       .then((user) => {
-
         const token = jwt.sign({email: user.email}, 'secret', {
           expiresIn: 604800
         });
+
         res.json({success: true,
           token:'JWT '+ token,
           user: user.email
@@ -89,7 +88,6 @@ module.exports = function(io){
         res.json({success: false,anotherField:'sdfsd', msg: error.message});
       });
   };
-
 
   return exports;
 };

@@ -1,7 +1,7 @@
 const fb = require('../db.js');
 const path = require('path');
 
-
+// todo: space!
 function getUserByUsername(email){
   return  fb.getUserByUsername(email);
 }
@@ -9,6 +9,7 @@ function getUserByUsername(email){
 exports.register = function register(user){
   return getUserByUsername(user.email)
     .then(() => {
+      // todo: i'cant register. Guess why :)
       throw new Error('Пользователь с таким именем уже есть в базе');
     },() => {
       return fb.addUser(user);

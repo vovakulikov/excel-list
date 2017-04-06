@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// todo: use one type of quotes
 import { AuthService } from "../shared/auth.service";
 import { Router } from '@angular/router';
 import { FlashMessagesService } from '../shared/flash-messages.service';
@@ -6,22 +7,24 @@ import { FlashMessagesService } from '../shared/flash-messages.service';
 @Component({
   selector: 'app-register',
   templateUrl: 'register.component.html',
-  styleUrls: ['register.component.css','../shared/css/controlls.css']
+  styleUrls: ['register.component.css', '../shared/css/controlls.css']
 })
 
 export class RegisterComponent{
-  firstName:string;
-  lastName:string;
-  email:string;
-  password:string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
 
   constructor(private authService: AuthService,
               private router: Router,
               private flashMessages: FlashMessagesService) { }
 
-  onSubmit(event){
+  onSubmit(event) {
     event.preventDefault();
 
+    // todo: it's time to read about interfaces
+    // todo: https://www.typescriptlang.org/docs/handbook/interfaces.html
     const user = {
       firstName: this.firstName,
       lastName: this.lastName,
@@ -30,18 +33,17 @@ export class RegisterComponent{
     };
 
     this.authService.registerUser(user).subscribe(response => {
-      if(response.success){
+      if (response.success) {
         this.flashMessages.addMessege({
           message: 'Now you are registered, please authorization ',
-          type:'success'
+          type: 'success'
         });
-        this.router.navigate(['/login'])
-      } else{
+        this.router.navigate(['/login']);
+      } else {
         //Здесь будет выводится сообщение об ошибке в flash message
         console.log('Something goes wrong :(');
-        console.log(response)
+        console.log(response);
       }
-    })
-
+    });
   }
 }
