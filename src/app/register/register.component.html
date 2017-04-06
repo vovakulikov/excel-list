@@ -1,19 +1,40 @@
-<h2>Please input your data about yourself in register form.</h2>
+<app-header></app-header>
+<app-wrapper>
 
-<form name="formAuth" (ngSubmit)="onSubmit($event)">
+  <h1 class="name-page">Join Excel loader</h1>
 
-  <label for="firstName">First Name</label>
-  <input type="text" [(ngModel)]="firstName" name="firstName" id="firstName" placeholder="First Name" required />
+  <p class="page-caption">
+    Create your personal account. And you get access to our app.
+  </p>
 
-  <label for="lastName">First Name</label>
-  <input type="text" [(ngModel)]="lastName" name="lastName" id="lastName" placeholder="Last Name" required />
+  <form class="form__register" name="formAuth" (ngSubmit)="onSubmit($event)">
 
-  <label for="email">Email</label>
-  <input type="text" [(ngModel)]="email" name="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+    <div class="register__wrap__input-block">
+      <label class="login__label" for="firstName">First Name</label>
+      <input class="login__input" type="text" [(ngModel)]="firstName" name="firstName" id="firstName" placeholder="First Name" required />
+      <span class="caption">This is caption for first name field</span>
+    </div>
 
-  <label for="passwd">Password</label>
-  <input type="password" [(ngModel)]="password" name="password" id="passwd" placeholder="Password" required />
+    <div class="register__wrap__input-block">
+      <label class="login__label" for="lastName">Last Name</label>
+      <input class="login__input" type="text" [(ngModel)]="lastName" name="lastName" id="lastName" placeholder="Last Name" required />
+      <span class="caption">This is caption for first name field</span>
+    </div>
 
-  <button type="submit" >Register</button>
+    <div class="register__wrap__input-block">
+      <label class="login__label" for="email">Email</label>
+      <input class="login__input" type="text" [(ngModel)]="email" name="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+      <span class="caption">A valid email address is composed of three parts, all of which represent a particular piece of information: the user name, the "at symbol" (@), and the domain.</span>
+    </div>
 
-</form>
+    <div class="register__wrap__input-block">
+      <label class="login__label" for="passwd">Password</label>
+      <input class="login__input" type="password" [(ngModel)]="password" name="password" id="passwd" placeholder="Password" required />
+      <span class="caption">Use at least one lowercase letter, one numeral, and seven characters.</span>
+    </div>
+
+    <button class="login__submit-button" type="submit" >Register</button>
+
+  </form>
+
+</app-wrapper>

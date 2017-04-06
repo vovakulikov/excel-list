@@ -6,18 +6,26 @@ import { FlashMessagesService } from '../shared/flash-messages.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css','../shared/css/controlls.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
 
   email: string;
   password: string;
 
   constructor(private authService: AuthService,
               private router: Router,
-              private FlashMessage: FlashMessagesService) { }
+              private FlashMessage: FlashMessagesService) {
+    if(this.authService.loggedIn()){
+      this.router.navigate([''])
+    }
+  }
+  ngOnInit(){
+    console.log('init login')
+  }
 
-  ngOnInit() {
+  ngOnDestroy(){
+    console.log('Login destroy')
   }
 
   onSubmit(event){
@@ -28,14 +36,16 @@ export class LoginComponent implements OnInit {
     };
 
     this.authService.authenticateUser(user).subscribe(data => {
-      console.log(data)
+
       if(data.success){
         this.authService.storeUserData(data.token, data.user);
         this.router.navigate(['profile']);
         this.FlashMessage.removeMessage();
-      } else{
-        console.log('We have a error and now we will update flash messege')
-        this.FlashMessage.addMessege(data.msg);
+      } else {
+        this.FlashMessage.addMessege({
+          message: data.msg,
+          type: 'alert'
+        });
       }
     })
 

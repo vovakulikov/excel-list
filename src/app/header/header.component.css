@@ -1,0 +1,55 @@
+.excel-list__header{
+  widht:100%;
+  background:#000;
+  height: 54px;
+}
+
+.header-wrap{
+  max-width:900px;
+  margin: 0 auto;
+  display: flex;
+  height: 100%;
+}
+
+
+.header__name{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.name__logo{
+  width:40px;
+  fill:wheat;
+}
+.name__text{
+  text-decoration: none;
+  font-size: 25px;
+  color:wheat;
+  margin-left:15px;
+}
+.header__auth-controllers{
+  margin-left: auto;
+  align-self: stretch;
+  display: flex;
+  align-items: stretch;
+}
+.router-link{
+  text-align: center;
+  margin-left: 20px;
+  text-decoration: none;
+  color: wheat;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+.router-link__text{
+  margin-right:3px;
+}
+.svg-icon{
+  fill: wheat;
+  width: 23px;
+  margin-top: -5px;
+  align-self: center;
+}

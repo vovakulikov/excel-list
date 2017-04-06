@@ -28,8 +28,7 @@ export class RequestService {
   getUserListFile(){
     const currentAdress = this.address + '/users/docs'
     const headers = new Headers();
-    headers.append('Authorizatio' +
-      'n',localStorage.getItem('id_token'))
+    headers.append('Authorization',localStorage.getItem('id_token'))
     return this.http.get(currentAdress, {
       headers: headers
     }).map(res => res.json());

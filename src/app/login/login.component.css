@@ -1,0 +1,57 @@
+.login-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background: #f9f9f9;
+}
+.wrap-login-page{
+  max-width: 320px;
+}
+
+.welcome-block{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+.welcome__logo{
+  width:100px;
+  fill:wheat;
+  margin-bottom: 30px;
+
+}
+.welcome__text{
+  font-size: 25px;
+}
+
+
+.login-page__form{
+  width: 100%;
+  padding: 30px 25px 25px;
+  border-radius: 5px;
+  border:1px solid #e8e8e8;
+  background: white;
+
+}
+.login__submit-button{
+  width:100%;
+  padding:10px;
+  background: wheat;
+  margin-top:10px;
+}
+.invite-register{
+  width:100%;
+  margin-top:20px;
+  max-width: 320px;
+  ~padding: 30px 25px;
+  display: flex;
+  ~justify-content: center;
+  ~border-radius: 5px;
+  ~border:1px solid #e8e8e8;
+
+  font-size: 13px;
+}

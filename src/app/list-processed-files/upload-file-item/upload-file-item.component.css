@@ -1,40 +1,29 @@
-.processed-file-section__item {
+.card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   min-height: 30px;
-  background: #ffffdc;
+  background: wheat;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   padding: 15px;
   font-size: 14px;
+  cursor:pointer;
+  flex:1 1 200px;
+  margin:0 10px 10px 0;
+  transition: background 0.2s ease;
 }
-
-.processed-file-section__item:hover {
-  background: aliceblue;
-  cursor: pointer;
+.card:hover{
+  background: #ffdc9b;
 }
-
-.processed-file-section__item div + div {
-  margin-left: 10px;
-}
-
-.item__name {
-  max-width: 200px;
+.card__label{
+  font-size: 18px;
   font-weight: bold;
 }
-
-.item__dest, .item__filename {
-  max-width: 300px;
-}
-
-.item__result {
-  display: flex;
-  justify-content: flex-end;
+.card__label_medium{
+  font-size: 14px;
   font-weight: bold;
 }
-
-.processed-file-section__item > div {
-  flex: 1;
-  flex-basis: 150px;
+.card__section{
+  margin-bottom: 10px;
 }

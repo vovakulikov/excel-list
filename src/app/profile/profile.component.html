@@ -1,6 +1,10 @@
-<div *ngIf='user'>
-  <h2>{{user.firstName}} {{user.lastName}}</h2>
-  <p>Email: {{user.email}}</p>
-  <app-form-load (loadFileHook)="uploadFile($event)"></app-form-load>
-  <app-list-processed-files></app-list-processed-files>
-</div>
+<app-header></app-header>
+<app-wrapper>
+  <div *ngIf='user'>
+    <h2>{{user.firstName}} {{user.lastName}}</h2>
+    <p>Email: {{user.email}}</p>
+    <app-form-load (loadFileHook)="uploadFile($event)"></app-form-load>
+    <app-list-processed-files></app-list-processed-files>
+  </div>
+</app-wrapper>
+

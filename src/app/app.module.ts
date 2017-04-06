@@ -24,6 +24,8 @@ import { AppRoutingModule } from './app.routing';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FlashMessagesComponent } from './flash-messages/flash-messages.component';
+import { HeaderComponent } from './header/header.component';
+import { WrapperComponent } from './wrapper/wrapper.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { FlashMessagesComponent } from './flash-messages/flash-messages.componen
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    FlashMessagesComponent
+    FlashMessagesComponent,
+    HeaderComponent,
+    WrapperComponent
   ],
   imports: [
     BrowserModule,

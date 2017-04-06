@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
-
+import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
@@ -9,7 +9,8 @@ export class AuthService {
   authToken: string;
   user: Object;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+              private router: Router) { }
 
   registerUser(user){
     let headers = new Headers();
@@ -45,7 +46,9 @@ export class AuthService {
     this.authToken = null;
     this.user = null;
 
+
     localStorage.clear();
+    this.router.navigate(['']);
   }
 
   loadToken(){

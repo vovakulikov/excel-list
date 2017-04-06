@@ -9,23 +9,29 @@ import { FlashMessagesService } from '../shared/flash-messages.service';
   templateUrl: './flash-messages.component.html',
   styleUrls: ['./flash-messages.component.css']
 })
-export class FlashMessagesComponent implements OnInit {
+export class FlashMessagesComponent{
 
   stream: any;
   message: string;
-  constructor(private flashMessage: FlashMessagesService) { }
+  typeClass : string;
+  constructor(private flashMessage: FlashMessagesService) {
 
-  ngOnInit() {
-    this.message = this.flashMessage.getMessage();
     this.stream = this.flashMessage.getStreamMessage();
 
-    this.stream.subscribe( message => {
-      this.message = message.msg;
-      console.log('Console from subscribe component')
+    [this.message, this.typeClass] = this.flashMessage.getMessage();
+
+    this.stream.subscribe( Modal => {
+      this.message = Modal.message;
+      this.typeClass = Modal.type;
+      console.log(this.message)
     })
   }
-  ngOnDestroy(){
-    this.message = '';
-  }
 
+  ngOnInit() {
+
+  }
+  ngOnDestroy(){
+    console.log('Destroy flash message component')
+    this.flashMessage.removeMessage();
+  }
 }

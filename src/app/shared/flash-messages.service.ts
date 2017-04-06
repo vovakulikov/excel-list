@@ -3,24 +3,26 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class FlashMessagesService {
   message: string;
+  type: string;
   stream = new Subject();
-  constructor() { }
+  constructor() {
+    this.message = '';
+    this.type = '';
+  }
 
   getStreamMessage(){
     return this.stream;
   }
   getMessage(){
-    return this.message;
+    return [this.message, this.type]
   }
   removeMessage(){
     this.message = '';
+    this.type = '';
   }
-  addMessege(message: string){
-    this.message = message;
-    this.stream.next({
-      msg: message,
-      class: 'alert'
-    })
-    console.log('Update flash message ', this.message)
+  addMessege(Res){
+    this.message = Res.message;
+    this.type = Res.type;
+    this.stream.next(Res);
   }
 }

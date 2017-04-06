@@ -6,10 +6,10 @@ import { FlashMessagesService } from '../shared/flash-messages.service';
 @Component({
   selector: 'app-register',
   templateUrl: 'register.component.html',
-  styleUrls: ['register.component.css']
+  styleUrls: ['register.component.css','../shared/css/controlls.css']
 })
-export class RegisterComponent implements OnInit {
 
+export class RegisterComponent implements OnInit {
   firstName:string;
   lastName:string;
   email:string;
@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(event){
     event.preventDefault();
+
     const user = {
       firstName: this.firstName,
       lastName: this.lastName,
@@ -31,13 +32,16 @@ export class RegisterComponent implements OnInit {
       password: this.password
     }
 
-    this.authService.registerUser(user).subscribe(data => {
-      if(data.success){
-        this.flashMessages.addMessege('Now you are registered, please authorization ')
+    this.authService.registerUser(user).subscribe(response => {
+      if(response.success){
+        this.flashMessages.addMessege({
+          message: 'Now you are registered, please authorization ',
+          type:'success'
+        });
         this.router.navigate(['/login'])
       } else{
         console.log('Something goes wrong :(');
-        console.log(data)
+        console.log(response)
       }
     })
 

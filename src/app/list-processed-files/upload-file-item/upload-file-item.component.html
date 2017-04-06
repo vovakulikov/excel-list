@@ -1,6 +1,19 @@
-<div class="processed-file-section__item" (click)="onDownload()">
-  <div (click)="onClick($event)" class="item__name">{{file.OriginalName}}</div>
-  <div class="item__dest">{{file.dest}}</div>
-  <div class="item__filename">{{file.fileName}}</div>
-  <div class="item__result">{{file.sumOnRow}}</div>
+<div class="card" (click)="onDownload()">
+  <div class="card__section">
+    <p class="card__label">Name</p>
+    <div (click)="onClick($event)" class="item__name">{{file.OriginalName}}</div>
+  </div>
+ <!-- <div class="card__section">
+    <p class="card__label_medium">Path on server</p>
+    <div class="item__dest">{{file.dest}}</div>
+  </div>-->
+  <div class="card__section">
+    <p class="card__label_medium">Uniq filename</p>
+    <div class="item__filename">{{file.fileName}}</div>
+  </div>
+  <div class="card__section">
+    <p class="card__label_medium">Summa of row</p>
+    <div class="item__result">{{file.sumOnRow}}</div>
+  </div>
+
 </div>

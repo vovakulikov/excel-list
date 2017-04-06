@@ -1,0 +1,38 @@
+
+.name-page{
+  margin-bottom:40px;
+}
+.page-caption{
+  margin-bottom: 15px;
+}
+
+.form__register{
+  max-width: 400px;
+}
+
+.register__wrap__input-block{
+  position: relative;
+}
+
+.caption{
+  position: absolute;
+  width:100%;
+  font-size:14px;
+  color:gainsboro;
+  top: 35px;
+  left: 104%;
+  padding-bottom: 10px;
+  display: block;
+}
+
+@media all and (max-width: 900px) {
+  .register__wrap__input-block{
+    padding-bottom: 20px;
+  }
+  .caption {
+    position: static;
+  }
+  .login__input{
+    margin-bottom: 5px;
+  }
+}

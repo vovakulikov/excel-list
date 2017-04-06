@@ -4,6 +4,9 @@
   padding:0;
   box-sizing: border-box;
 }
+html,body{
+  height: 100vh;
+}
 body{
   font-family: Arial;
 }
@@ -15,4 +18,12 @@ button,label{
   border:none;
   font-family: Arial;
   font-size: 14px;
+}
+.like-a-link{
+  color:blue;
+}
+
+app-upload-file-item{
+  flex-grow: 1;
+  max-width: 50%;
 }

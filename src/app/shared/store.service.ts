@@ -72,11 +72,14 @@ export class StoreService {
 
   //list of file which already uploaded.
   addServerFile(files) {
+    console.log('Add a new files  ',files)
     files.forEach((file: File) => {
       this.uploadedFile.push(file);
     });
   }
-
+  clearUploadServerFiles(){
+    this.uploadedFile.splice(0, this.uploadedFile.length);
+  }
   getUploadFile() {
     return this.uploadedFile;
   }
