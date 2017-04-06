@@ -7,8 +7,18 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 
 const app = express();
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+
 const api = require('./server/routes/api');
-const user = require('./server/routes/user');
+const user = require('./server/routes/user')(io);
+
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./api/swagger/swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.set('port',3000);
 
@@ -35,8 +45,16 @@ app.get('*', (req, res) => {
 });
 
 
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
 
-http.createServer(app).listen(app.get('port'),function(){
+io.use(function(socket, next){
+  console.log('use socket',socket.handshake.headers);
+  next()
+})
+
+server.listen(app.get('port'),function(){
   console.log('Express server listening on port '+ app.get('port'))
 })
 
