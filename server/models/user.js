@@ -31,6 +31,8 @@ exports.getPassToPassport = function(email, cb){
   getUserByUsername(email)
     .then((user)=>{
       cb(false,user);
+    },(err) => {
+      cb(err,null)
     })
 };
 

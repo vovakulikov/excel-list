@@ -28,8 +28,10 @@ class Firebase {
         .equalTo(email).once('value')
         .then((snapshot) => {
           let userProfile = snapshot.val();
-          if(!userProfile) reject(new Error('User with this email is not exist'));
-          else{
+          //console.log('getUserByUserName db user', userProfile)
+          if(!userProfile) {
+            reject(new Error('User with this email is not exist'));
+          } else {
             let keyUser = Object.keys(userProfile);
             resolve(userProfile[keyUser[0]])
           }
