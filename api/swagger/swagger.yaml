@@ -53,7 +53,9 @@ paths:
         200:
           description: Object of auth-current user
           schema:
-            $ref: '#/definitions/UserDocument'
+            type: array
+            items:
+              $ref: '#/definitions/UserDocument'
         default:
           description: Unauthorized
           schema:
@@ -111,7 +113,31 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/UnauthError'
+  
+  /users/register:
+    post:
+      summary: Request to upload a file to server
+      description: Sent a file to save them on server and do proccessing on them
+      parameters:
+        - name: User Information
+          in: body
+          description: Data about user for registration.
+          required: true
+          schema:
+            $ref: '#/definitions/ToRegister'
+      tags:
+        - Document
+      responses:
+        200:
+          description: Proccessed file information
+          schema:
+            $ref: '#/definitions/Response'
+        default:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/UnauthError'  
     
+
 definitions:
   UserProfile:
     type: object
@@ -129,6 +155,18 @@ definitions:
             type: string
           password:
             type: string
+  ToRegister:
+    type: object
+    properties:
+      email:
+        type: string
+      firstName:
+            type: string
+      lastName:
+        type: string
+      password:
+        type: string
+ 
   UnauthError:
     type: object
     properties:
@@ -139,20 +177,26 @@ definitions:
         type: string
       fields:
         type: string
+  
+  Response:
+    type: object
+    properties:
+      success: 
+        type: boolean
+      msg:
+        type: string
+        
   UserDocument:
-    type: array
-    items: 
-      type: object
-      allOf: 
-        - properties:
-             OriginalName:
-               type: string
-             dest:
-               type: string
-             fileName:
-               type: string
-             sumOnRow:
-               type: number
+    type: object
+    properties:
+      OriginalName:
+        type: string
+      dest:
+        type: string
+      fileName:
+        type: string
+      sumOnRow:
+        type: number
           
                
         

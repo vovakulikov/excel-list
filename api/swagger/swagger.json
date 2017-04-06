@@ -1,0 +1,284 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Excel-loader API",
+    "description": "Move your app forward with the Uber API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users/profile": {
+      "get": {
+        "summary": "User profile information.",
+        "description": "The users profile endpoint returns information about the user. \nJson web token and another information about current user, which detected by \nauth header.\n",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "ID tokent JWT for get auth-current user.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Object of auth-current user",
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          },
+          "default": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthError"
+            }
+          }
+        }
+      }
+    },
+    "/users/docs": {
+      "get": {
+        "summary": "User documents list.",
+        "description": "Get a user documents list with proccessing information  from firebase",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "ID tokent JWT for get auth-current user.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Document"
+        ],
+        "responses": {
+          "200": {
+            "description": "Object of auth-current user",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserDocument"
+              }
+            }
+          },
+          "default": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthError"
+            }
+          }
+        }
+      }
+    },
+    "/user/download-user-file/:id": {
+      "get": {
+        "summary": "Download user file.",
+        "description": "Get a user document for download",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "ID tokent JWT for get auth-current user.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ID file to download",
+            "in": "query",
+            "description": "ID file.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Document"
+        ],
+        "responses": {
+          "200": {
+            "description": "Blob file to download",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthError"
+            }
+          }
+        }
+      }
+    },
+    "/users/upload-user-file": {
+      "post": {
+        "summary": "Request to upload a file to server",
+        "description": "Sent a file to save them on server and do proccessing on them",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "ID tokent JWT for get auth-current user.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "File",
+            "in": "query",
+            "description": "File to upload on server.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Document"
+        ],
+        "responses": {
+          "200": {
+            "description": "Proccessed file information",
+            "schema": {
+              "$ref": "#/definitions/UserDocument"
+            }
+          },
+          "default": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthError"
+            }
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "summary": "Request to upload a file to server",
+        "description": "Sent a file to save them on server and do proccessing on them",
+        "parameters": [
+          {
+            "name": "User Information",
+            "in": "body",
+            "description": "Data about user for registration.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ToRegister"
+            }
+          }
+        ],
+        "tags": [
+          "Document"
+        ],
+        "responses": {
+          "200": {
+            "description": "Proccessed file information",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "default": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/UnauthError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UserProfile": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "documents": {
+              "$ref": "#/definitions/UserDocument"
+            },
+            "email": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ToRegister": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UnauthError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "UserDocument": {
+      "type": "object",
+      "properties": {
+        "OriginalName": {
+          "type": "string"
+        },
+        "dest": {
+          "type": "string"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "sumOnRow": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
