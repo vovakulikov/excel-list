@@ -11,9 +11,8 @@ const bodyParser = require('body-parser');
 const app = express();
 // todo: Maybe you can split server/io into separate module? Try to think how else you can solve 'io' problem
 const server = http.createServer(app);
-const io = require('socket.io')(server);
 const api = require('./server/routes/api');
-const user = require('./server/routes/user')(io);
+const user = require('./server/routes/user');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./api/swagger/swagger.json');
 

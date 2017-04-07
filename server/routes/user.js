@@ -1,4 +1,4 @@
-module.exports = function(io){
+
 
   const express = require('express');
   const router = express.Router();
@@ -6,7 +6,7 @@ module.exports = function(io){
   const multer = require('multer');
   const multerStorge = require('../multer.config.js').config;
   const upload = multer({storage: multerStorge.storage});
-  const userController = require('../controllers/user.js')(io);
+  const userController = require('../controllers/user.js');
 
   router.post('/register',userController.registerUser);
   router.post('/auth', userController.authUser);
@@ -26,5 +26,6 @@ module.exports = function(io){
   router.get('/docs',userController.getDocs);
   router.get('/download-user-file/:id', userController.download);
   router.post('/upload-user-file',upload.array('uploads'),userController.uploadFile);
-  return router;
-};
+
+
+module.exports = router;

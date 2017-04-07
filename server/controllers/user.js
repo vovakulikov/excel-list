@@ -1,4 +1,4 @@
-module.exports = function(io){
+
   const UserModel = require('../models/user.js');
   const jwt = require('jsonwebtoken');
   const fs = require('fs');
@@ -20,7 +20,6 @@ module.exports = function(io){
       return fb.addDocumentsToUser(req.user, file);
     }).then(() => {
         res.send({documentInfo : dataAboutFiles});
-        io.emit(req.user.email, {documentInfo : dataAboutFiles});
       }).catch (() => {
       res.status(500).send('При отправке файлов произошла ошибка!');
     });
@@ -88,7 +87,4 @@ module.exports = function(io){
         res.json({success: false,anotherField:'sdfsd', msg: error.message});
       });
   };
-
-  return exports;
-};
 

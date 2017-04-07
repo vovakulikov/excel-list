@@ -9,9 +9,9 @@ module.exports = function(passport) {
   opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
   opts.secretOrKey = 'secret';
 
-  passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+  passport.use(new JwtStrategy(opts, function(jwtPayload, done) {
     // todo: camelCase!
-    User.getPassToPassport(jwt_payload.email, (err,userProfile) => {
+    User.getPassToPassport(jwtPayload.email, (err,userProfile) => {
       if (err) {
         return done(err, false);
       }
