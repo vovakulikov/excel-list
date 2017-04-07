@@ -16,8 +16,4 @@ export class AuthGuard implements CanActivate {
       return false;
     }
   }
-  reverseCanActivate() {
-    //todo: where is this method used?
-    return !this.canActivate();
-  }
 }
