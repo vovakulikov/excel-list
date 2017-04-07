@@ -8,7 +8,7 @@ const upload = multer({storage: multerStorge.storage});
 router.get('/download/:id', excelController.download);
 router.get('/docs', excelController.getAll);
 
-router.post('/upload', upload.array('uploads'), excelController.saveFiles);
+//router.post('/upload', upload.array('uploads'), excelController.saveFiles);
 router.get('/', (req, res) => {
   res.end('api works');
 });

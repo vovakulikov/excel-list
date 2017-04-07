@@ -51,18 +51,18 @@ function readXLSX (files) {
    */
 }
 
-function getCurrentRow(obj) {
+function getCurrentRow(xlsxJson) {
   //todo: what is obj? what it contains. rename pls
   const configField = config.fieldForTotal;
-
+  const header = xlsxJson[0];
   //todo: also, i can't quite understand why are you accessing obj[0]
   // in such situations obj[0] should be assigned to another self-describable variable at first
-  if (obj[0].hasOwnProperty(configField)) {
+  if (header.hasOwnProperty(configField)) {
     return configField;
   }
 
-  for (const key in obj[0]) {
-    if (obj[0].hasOwnProperty(key) && typeof obj[0][key] === 'number') {
+  for (const key in header) {
+    if (header.hasOwnProperty(key) && typeof header[key] === 'number') {
       return key;
     }
   }
@@ -70,17 +70,17 @@ function getCurrentRow(obj) {
   return 0;
 }
 
-function getSumOnRow (obj) {
+function getSumOnRow (xlsxJson) {
   let currentRow = null;
   //todo: rename summa to sum or total
   //solution: sum was renamed.
   let total = 0;
 
-  currentRow = getCurrentRow(obj);
+  currentRow = getCurrentRow(xlsxJson);
   //todo: remove i, ar - unused parameters
   if (!currentRow) return 0;
 
-  obj.forEach(function (item) {
+  xlsxJson.forEach(function (item) {
     total = total + item[currentRow];
   });
   return total;

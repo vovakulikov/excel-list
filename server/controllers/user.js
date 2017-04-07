@@ -15,7 +15,7 @@
   };
 
   exports.subcribe = function (req, res) {
-
+    liveDocumentStore.subcribe(req, res);
   }
 
   exports.uploadFile = function(req,res){
@@ -24,10 +24,13 @@
     utils.serialAsync(dataAboutFiles, function (file) {
       return fb.addDocumentsToUser(req.user, file);
     }).then(() => {
+        //console.log('success branch ', documentInfo);
         liveDocumentStore.publish(req, {documentInfo : dataAboutFiles})
-        res.send({documentInfo : dataAboutFiles});
-      }).catch (() => {
-      res.status(500).send('При отправке файлов произошла ошибка!');
+        //res.send({documentInfo : dataAboutFiles});
+        res.json({success: true})
+      }).catch ((err) => {
+      console.log('failure',err);
+      res.status(500).send(err);
     });
 
   };
@@ -62,7 +65,9 @@
 
     UserModel.register(user)
       .then(() => {
-        fs.mkdirSync(dir+`/${user.email}`);
+        if(!fs.existsSync(dir + `/${user.email}`)){
+          fs.mkdirSync(dir + `/${user.email}`);
+        }
         res.json({success: true, msg: 'user registered', user: user});
       })
       .catch((error) => {

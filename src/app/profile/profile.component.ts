@@ -22,12 +22,25 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile;
+      this.subscribe();
     });
 
   }
+  subscribe(){
+    console.log('subscribe init')
+    this.reqService.subOnUpdateFiles().subscribe( (newFiles) => {
+      this.storeService.addServerFile(newFiles.documentInfo);
+      this.subscribe()
+    })
+  }
   uploadFile(files){
-    this.reqService.uploadUserFiles(files).subscribe(uploadedFile => {
-      this.storeService.addServerFile(uploadedFile.documentInfo);
+    this.reqService.uploadUserFiles(files).subscribe( response => {
+      if(response.success){
+        console.log('Success');
+      } else {
+        console.log('Fialure');
+      }
+      //this.storeService.addServerFile(uploadedFile.documentInfo);
       //Раньше здесь добавлялись ответы полсе обработки файлов.
       //Сейчас используется socket io.
       //Позже этот запрос будет работать на socket io

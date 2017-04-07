@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 // todo: use one type of quotes
-import { AuthService } from "../shared/auth.service";
+import { AuthService } from '../shared/auth.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from '../shared/flash-messages.service';
+import { User } from '../shared/interfaces/user';
 
 @Component({
   selector: 'app-register',
@@ -11,10 +12,10 @@ import { FlashMessagesService } from '../shared/flash-messages.service';
 })
 
 export class RegisterComponent{
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
+  firstName;
+  lastName;
+  email;
+  password;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -25,7 +26,7 @@ export class RegisterComponent{
 
     // todo: it's time to read about interfaces
     // todo: https://www.typescriptlang.org/docs/handbook/interfaces.html
-    const user = {
+    const user: User = {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,

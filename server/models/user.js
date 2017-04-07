@@ -20,9 +20,9 @@ exports.getUserByUsername = getUserByUsername;
 
 exports.comparePassword = function (passReq, user){
   return new Promise((resolve) => {
-    if(passReq === user.password){
+    if (passReq === user.password) {
       resolve(user);
-    } else{
+    } else {
       throw new Error('Неверный пароль');
     }
   });

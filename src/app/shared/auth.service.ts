@@ -3,16 +3,17 @@ import { Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
+import { User } from '../shared/interfaces/user';
 
 @Injectable()
 export class AuthService {
   authToken: string;
-  user: Object;
+  user: User;
 
   constructor(private http: Http,
               private router: Router) { }
 
-  registerUser(user) {
+  registerUser(user:User) {
     let headers = new Headers();
 
     headers.append('Content-type', 'application/json');
@@ -20,14 +21,14 @@ export class AuthService {
       .map(res => res.json());
   }
 
-  authenticateUser(user){
+  authenticateUser(user:User){
     let headers = new Headers();
     headers.append('Content-type','application/json');
     return this.http.post('http://localhost:3000/users/auth', user, {headers: headers})
       .map(res => res.json());
   }
 
-  storeUserData(token, user) {
+  storeUserData(token, user:User) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
