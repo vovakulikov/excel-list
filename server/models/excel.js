@@ -32,19 +32,37 @@ function readXLSX (files) {
   });
 
   return data;
-}
-function getCurrentRow(obj){
-  const configField = config.fieldForTotal;
-  //todo: add hasOwnProperty check
-  //solution: here we are check field, which we had written early in config.js
-  //if obj[0] doesnt have this field (field from config) we will use another field with type of number.
-  if(obj[0].hasOwnProperty(configField))
-    return configField;
 
-  //todo: refactor this loop without using break
-  //solution: we don't break 'for' statement by keyword 'break', we use 'return' for stopping 'for' statement
-  for (let key in obj[0]) {
-    if (typeof obj[0][key] === 'number') {
+  /**
+   *  // todo: just for example. it could be rewritten like that
+   return files.map(item => ({
+    OriginalName: item.originalname,
+    dest: item.destination,
+    fileName: item.filename,
+    sumOnRow: (function () {
+      const workbook = XLSX.readFile(item.path);
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const xlsxJson = XLSX.utils.sheet_to_json(worksheet, {raw: true});
+
+      return getSumOnRow(xlsxJson);
+    })()
+  }));
+   */
+}
+
+function getCurrentRow(obj) {
+  //todo: what is obj? what it contains. rename pls
+  const configField = config.fieldForTotal;
+
+  //todo: also, i can't quite understand why are you accessing obj[0]
+  // in such situations obj[0] should be assigned to another self-describable variable at first
+  if (obj[0].hasOwnProperty(configField)) {
+    return configField;
+  }
+
+  for (const key in obj[0]) {
+    if (obj[0].hasOwnProperty(key) && typeof obj[0][key] === 'number') {
       return key;
     }
   }
@@ -78,25 +96,24 @@ exports.parseFile = function (files) {
     return fb.addData(file);
   }).then(() => {
       return Promise.resolve(data);
-  })
+  });
 };
 
 exports.parsingFiles = function(files){
   return readXLSX(files);
-}
+};
 
 exports.getAll = function (cb) {
   fb.getData('list')
     .then((data) => {
-      cb(data)
-    })
+      cb(data);
+    });
 
 };
 
 exports.getAFile = function (reqBody) {
   let currentPath = './../storeFiles/' + reqBody.id;
-  currentPath = path.join(__dirname, currentPath)
+  currentPath = path.join(__dirname, currentPath);
+
   return path.resolve(currentPath);
-  //todo: why not just return path?
-  //solution: oh God, that's much ease, now we return a simple path
 };
