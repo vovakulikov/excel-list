@@ -6,6 +6,7 @@
   const excelModel = require('../models/excel.js');
   const utils = require('../utils.js');
   const fb = require('../db.js');
+  const liveDocumentStore = require('../liveStore.js');
 
   exports.download = function (req, res){
     const currentPath = UserModel.getFile(req);
@@ -13,12 +14,17 @@
     res.download(currentPath);
   };
 
+  exports.subcribe = function (req, res) {
+
+  }
+
   exports.uploadFile = function(req,res){
     const dataAboutFiles = excelModel.parsingFiles(req.files);
 
     utils.serialAsync(dataAboutFiles, function (file) {
       return fb.addDocumentsToUser(req.user, file);
     }).then(() => {
+        liveDocumentStore.publish(req, {documentInfo : dataAboutFiles})
         res.send({documentInfo : dataAboutFiles});
       }).catch (() => {
       res.status(500).send('При отправке файлов произошла ошибка!');

@@ -24,6 +24,7 @@
 
   router.get('/profile',userController.getProfile);
   router.get('/docs',userController.getDocs);
+  router.get('/subscribe-update-files', userController.subcribe)
   router.get('/download-user-file/:id', userController.download);
   router.post('/upload-user-file',upload.array('uploads'),userController.uploadFile);
 
