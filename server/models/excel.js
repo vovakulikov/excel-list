@@ -4,9 +4,9 @@
 
 const XLSX = require('xlsx');
 const fb = require('../db.js');
-const utils = require('../utils.js');
+const utils = require('../utils/util-promise.js');
 const path = require('path');
-const config = require('../config.js');
+const config = require('../config/config.js');
 
 
 function readXLSX (files) {
@@ -103,13 +103,12 @@ exports.parsingFiles = function(files){
   return readXLSX(files);
 };
 
-exports.getAll = function (cb) {
+/*exports.getAll = function (cb) {
   fb.getData('list')
     .then((data) => {
       cb(data);
-    });
-
-};
+    })
+};*/
 
 exports.getAFile = function (reqBody) {
   let currentPath = './../storeFiles/' + reqBody.id;

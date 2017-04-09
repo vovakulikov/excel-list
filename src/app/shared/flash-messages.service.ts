@@ -5,6 +5,7 @@ export class FlashMessagesService {
   message: string;
   type: string;
   stream = new Subject();
+
   constructor() {
     this.message = '';
     this.type = '';

@@ -15,6 +15,7 @@ const api = require('./server/routes/api');
 const user = require('./server/routes/user');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./api/swagger/swagger.json');
+const debug = require('debug')('http');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
@@ -38,6 +39,7 @@ app.get('*', (req, res) => {
 });
 
 server.listen(app.get('port'),function(){
-  // try install and use 'debug' module for debug messages
-  console.log('Express server listening on port '+ app.get('port'));
+  debug('listening on ', app.get('port'));
 });
+
+module.exports = app;

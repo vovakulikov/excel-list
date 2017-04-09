@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FlashMessagesService } from '../shared/flash-messages.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { FlashMessagesService } from '../shared/flash-messages.service';
   styleUrls: ['./flash-messages.component.css']
 })
 export class FlashMessagesComponent {
-  stream: any;
+  stream;
   message: string;
   typeClass: string;
 
@@ -19,10 +19,6 @@ export class FlashMessagesComponent {
       this.message = Modal.message;
       this.typeClass = Modal.type;
     });
-  }
-
-  ngOnInit() {
-    // i'm alone unnecessary method
   }
 
   ngOnDestroy(){

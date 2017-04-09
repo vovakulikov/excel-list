@@ -1,10 +1,10 @@
-
   const UserModel = require('../models/user.js');
   const jwt = require('jsonwebtoken');
   const fs = require('fs');
   const dir = './server/storeFiles/registered';
   const excelModel = require('../models/excel.js');
-  const utils = require('../utils.js');
+  const utils = require('../utils/util-promise.js');
+  const hash = require('../utils/util-hash.js');
   const fb = require('../db.js');
   const liveDocumentStore = require('../liveStore.js');
 
@@ -29,21 +29,20 @@
         //res.send({documentInfo : dataAboutFiles});
         res.json({success: true})
       }).catch ((err) => {
-      console.log('failure',err);
-      res.status(500).send(err);
+      res.status(500).send(err.message);
     });
 
   };
 
   exports.getDocs = function (req,res) {
-    fb.getDocuments('/users/'+utils.hash(req.user.email)+'/documents/')
-      .then(data => {
-        res.json(data);
+    fb.getDocuments('/users/' + hash(req.user.email) + '/documents/')
+      .then(documents => {
+        res.json(documents);
       })
-      .catch(() => {
+      .catch((err) => {
         res.json({
           success: false,
-          msg: 'При получение файлов произошла ошибка'
+          msg: err.message
         });
       });
   };

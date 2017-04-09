@@ -1,6 +1,6 @@
-const config = require('./config.js').config;
+const config = require('./config/config.js').config;
 const firebase = require('firebase');
-const utils = require('./utils');
+const hash = require('./utils/util-hash');
 
 class Firebase {
   constructor (config) {
@@ -13,8 +13,8 @@ class Firebase {
       .then((snapshot) => {
         const list = [];
 
-        snapshot.forEach(function (item) {
-          list.push(item.val());
+        snapshot.forEach(function (doc) {
+          list.push(doc.val());
         });
         return Promise.resolve(list);
       },(error) => {
@@ -22,7 +22,7 @@ class Firebase {
       } );
   }
 
-  getUserByUsername(email){
+  getUserByUsername (email) {
     return new Promise((resolve, reject) => {
       this.rootRef.child('users').orderByChild('email')
         .equalTo(email).once('value')
@@ -39,12 +39,12 @@ class Firebase {
   }
 
   addUser(user){
-    return this.fb.database().ref(`users/${utils.hash(user.email)}`).set(user);
+    return this.fb.database().ref(`users/${hash(user.email)}`).set(user);
   }
 
   addDocumentsToUser(user,document){
     return new Promise((resolve, reject) => {
-      this.fb.database().ref(`users/${utils.hash(user.email)}/documents/${utils.hash(document.fileName)}`)
+      this.fb.database().ref(`users/${hash(user.email)}/documents/${hash(document.fileName)}`)
         .set(document)
         .then(() => {
           resolve();

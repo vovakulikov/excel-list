@@ -16,9 +16,11 @@ export class LoginComponent{
   constructor(private authService: AuthService,
               private router: Router,
               private FlashMessage: FlashMessagesService) {
+
     if(this.authService.loggedIn()){
       this.router.navigate([''])
     }
+
   };
 
   onSubmit(event){

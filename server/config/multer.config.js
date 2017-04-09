@@ -16,4 +16,4 @@ const multerConfig = {
   })
 };
 
-exports.config =  multerConfig;
+module.exports.config = multerConfig;

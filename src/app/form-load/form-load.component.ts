@@ -7,19 +7,16 @@ import { StoreService } from '../shared/store.service';
   templateUrl: './form-load.component.html',
   styleUrls: ['./form-load.component.css']
 })
-export class FormLoadComponent implements OnInit {
+export class FormLoadComponent{
 
   @Output() loadFileHook = new EventEmitter();
   correctFiles: File[];
   uncorrectFiles: File[];
-  constructor( private requestService: RequestService,
-               private storeService: StoreService ) {
+  constructor( private storeService: StoreService ) {
 
     this.correctFiles = [];
     this.uncorrectFiles = [];
   }
-
-  ngOnInit() {}
 
   onSubmit(evt) {
     const files: File[] = this.storeService.getFiles();
