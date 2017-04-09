@@ -19,7 +19,7 @@ const debug = require('debug')('http');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.set('port',3000);
+app.set('port',3001);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

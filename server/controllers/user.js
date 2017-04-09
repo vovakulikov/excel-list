@@ -70,7 +70,7 @@
         res.json({success: true, msg: 'user registered', user: user});
       })
       .catch((error) => {
-        res.json({success: false, msg: error.message});
+        res.status(500).json({success: false, msg: error.message});
       });
   };
 
