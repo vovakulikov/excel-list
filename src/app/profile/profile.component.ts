@@ -23,6 +23,11 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile;
       this.subscribe();
+    }, err => {
+      console.log('error happand')
+      setTimeout(()=>{
+        this.subscribe();
+      }, 1000)
     });
   }
 
