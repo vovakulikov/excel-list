@@ -10,7 +10,6 @@
 
   exports.download = function (req, res){
     const currentPath = UserModel.getFile(req);
-
     res.download(currentPath);
   };
 
@@ -31,7 +30,6 @@
       }).catch ((err) => {
       res.status(500).send(err.message);
     });
-
   };
 
   exports.getDocs = function (req,res) {
@@ -52,7 +50,6 @@
       firstName: req.user.firstName,
       lastName: req.user.lastName});
   };
-
 
   exports.registerUser = function(req, res) {
     const user = {
@@ -75,7 +72,6 @@
   };
 
   exports.authUser = function(req,res){
-
     const email = req.body.email;
     const password = req.body.password;
 
@@ -87,7 +83,6 @@
         const token = jwt.sign({email: user.email}, 'secret', {
           expiresIn: 604800
         });
-
         res.json({success: true,
           token:'JWT '+ token,
           user: user.email

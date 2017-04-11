@@ -17,14 +17,12 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./api/swagger/swagger.json');
 const debug = require('debug')('http');
 
+app.use(cors());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.set('port',3001);
-
+app.set('port',3000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
-app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,6 +37,7 @@ app.get('*', (req, res) => {
 });
 
 server.listen(app.get('port'),function(){
+  console.log('Server start')
   debug('listening on ', app.get('port'));
 });
 
