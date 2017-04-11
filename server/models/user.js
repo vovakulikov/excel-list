@@ -1,7 +1,6 @@
 const fb = require('../db.js');
 const path = require('path');
 
-// todo: space!
 function getUserByUsername(email){
   return  fb.getUserByUsername(email);
 }

@@ -18,15 +18,15 @@ export class FormLoadComponent{
     this.uncorrectFiles = [];
   }
 
-  onSubmit(evt) {
+  onSubmit() {
     const files: File[] = this.storeService.getFiles();
     this.loadFileHook.emit(files);
     this.storeService.removePreloadFiles();
   }
 
-  onChange(fileInput) {
+  onChange(fileEVT) {
     this.storeService.removePreloadFiles();
-    [this.correctFiles, this.uncorrectFiles] = this.storeService.checkGroupFiles(fileInput);
+    [this.correctFiles, this.uncorrectFiles] = this.storeService.checkGroupFiles(fileEVT);
     this.storeService.addData(this.correctFiles);
   }
 

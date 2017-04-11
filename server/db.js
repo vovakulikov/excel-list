@@ -19,7 +19,7 @@ class Firebase {
         return Promise.resolve(list);
       },(error) => {
         throw new Error(error);
-      } );
+      });
   }
 
   getUserByUsername (email) {
@@ -27,11 +27,13 @@ class Firebase {
       this.rootRef.child('users').orderByChild('email')
         .equalTo(email).once('value')
         .then((snapshot) => {
-          let userProfile = snapshot.val();
+          const userProfile = snapshot.val();
+          let keyUser;
+
           if(!userProfile) {
             reject(new Error('User with this email is not exist'));
           } else {
-            let keyUser = Object.keys(userProfile);
+            keyUser = Object.keys(userProfile);
             resolve(userProfile[keyUser[0]]);
           }
         });
@@ -46,7 +48,7 @@ class Firebase {
     return this.fb.database().ref(`users/${hash(user.email)}`).remove()
   }
 
-  addDocumentsToUser(user,document){
+  addDocumentsToUser(user, document){
     return new Promise((resolve, reject) => {
       this.fb.database().ref(`users/${hash(user.email)}/documents/${hash(document.fileName)}`)
         .set(document)

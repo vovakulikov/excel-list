@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
+import { UserFile } from '../../shared/interfaces/User-file';
 @Component({
   selector: 'app-upload-file-item',
   templateUrl: 'upload-file-item.component.html',
@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class UploadFileItemComponent {
 
-  @Input() file: Object;
+  @Input() file: UserFile;
   @Output() download = new EventEmitter();
 
   constructor() { }

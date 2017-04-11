@@ -11,7 +11,7 @@ import {StoreService} from "../shared/store.service";
 })
 export class ProfileComponent implements OnInit {
   user: Object;
-  socket: any;
+
   constructor(private authService: AuthService,
               private reqService: RequestService,
               private storeService: StoreService ) {
@@ -24,15 +24,17 @@ export class ProfileComponent implements OnInit {
       this.user = profile;
       this.subscribe();
     });
-
   }
+
   subscribe(){
     console.log('subscribe init')
-    this.reqService.subOnUpdateFiles().subscribe( (newFiles) => {
+    this.reqService.subOnUpdateFiles().subscribe((newFiles) => {
+      console.log('Пришли данные', newFiles);
       this.storeService.addServerFile(newFiles.documentInfo);
       this.subscribe()
     })
   }
+
   uploadFile(files){
     this.reqService.uploadUserFiles(files).subscribe( response => {
       if(response.success){
@@ -40,12 +42,6 @@ export class ProfileComponent implements OnInit {
       } else {
         console.log('Fialure');
       }
-      //this.storeService.addServerFile(uploadedFile.documentInfo);
-      //Раньше здесь добавлялись ответы полсе обработки файлов.
-      //Сейчас используется socket io.
-      //Позже этот запрос будет работать на socket io
     });
-
   }
-
 }

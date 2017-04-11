@@ -17,7 +17,7 @@
     liveDocumentStore.subcribe(req, res);
   }
 
-  exports.uploadFile = function(req,res){
+  exports.uploadFile = function(req, res){
     const dataAboutFiles = excelModel.parsingFiles(req.files);
 
     utils.serialAsync(dataAboutFiles, function (file) {
@@ -32,7 +32,7 @@
     });
   };
 
-  exports.getDocs = function (req,res) {
+  exports.getDocs = function (req, res) {
     fb.getDocuments('/users/' + hash(req.user.email) + '/documents/')
       .then(documents => {
         res.json(documents);
@@ -45,8 +45,9 @@
       });
   };
 
-  exports.getProfile = function (req,res) {
-    res.json({email: req.user.email,
+  exports.getProfile = function (req, res) {
+    res.json({
+      email: req.user.email,
       firstName: req.user.firstName,
       lastName: req.user.lastName});
   };
@@ -71,7 +72,7 @@
       });
   };
 
-  exports.authUser = function(req,res){
+  exports.authUser = function(req, res){
     const email = req.body.email;
     const password = req.body.password;
 

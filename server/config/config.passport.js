@@ -11,11 +11,10 @@ module.exports = function(passport) {
 
   passport.use(new JwtStrategy(opts, function(jwtPayload, done) {
     // todo: camelCase!
-    User.getPassToPassport(jwtPayload.email, (err,userProfile) => {
+    User.getPassToPassport(jwtPayload.email, (err, userProfile) => {
       if (err) {
         return done(err, false);
       }
-
       if (userProfile) {
         return done(null, userProfile);
       }

@@ -11,7 +11,8 @@ export class ListProcessedFilesComponent implements OnInit {
 
   listFiles: Object[];
 
-  constructor(private requestService: RequestService, private storeService: StoreService) {
+  constructor(private requestService: RequestService,
+              private storeService: StoreService) {
     this.listFiles = [];
   }
 
@@ -21,8 +22,8 @@ export class ListProcessedFilesComponent implements OnInit {
       this.storeService.addServerFile(files);
     })
   }
+
   download(fileInform) {
     this.requestService.downloadUserFile(fileInform);
   }
-
 }
