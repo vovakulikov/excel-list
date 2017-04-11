@@ -44,9 +44,12 @@ Thumbs.db
 
 # exclude everything
 /server/storeFiles/*
-
+/server/storeFiles/registered/*
 # exception to the rule
 !server/storeFiles/.gitkeep
+!server/storeFiles/registered
+!server/storeFiles/registered/.gitkeep
+
 
 # npm-log
 npm-debug.log.3890822464
