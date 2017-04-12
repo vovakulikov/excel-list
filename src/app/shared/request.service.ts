@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import 'rxjs/add/operator/map';
-
 import { Http, Headers, ResponseContentType } from '@angular/http';
 import { UserFile } from './interfaces/User-file';
 
@@ -34,7 +33,9 @@ export class RequestService {
     headers.append('Authorization',localStorage.getItem('id_token'));
     return this.http.get(currentAdress, {
       headers: headers
-    }).map(res => res.json());
+    }).map(res => {
+      return res.json();
+    })
   }
 
   getUserListFile(){

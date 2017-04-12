@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { RequestService } from '../shared/request.service';
 import {StoreService} from "../shared/store.service";
-
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-profile',
