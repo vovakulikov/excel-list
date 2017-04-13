@@ -36,8 +36,8 @@ exports.getPassToPassport = function(email, cb){
     });
 };
 
-exports.getFile = function(req){
-  let currentPath = './../storeFiles/registered/'+req.user.email+'/'+req.params.id;
+exports.getFile = function(email, id){
+  let currentPath = './../storeFiles/registered/'+email+'/'+id;
   currentPath = path.join(__dirname, currentPath);
 
   return path.resolve(currentPath);

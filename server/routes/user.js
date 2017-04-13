@@ -8,7 +8,7 @@ const userController = require('../controllers/user.js');
 
 router.post('/register',userController.registerUser);
 router.post('/auth', userController.authUser);
-
+router.get('/get-share-file/:user/:fileName', userController.getShareFile);
 //not auth req;
 router.use((req, res, next) => {
 	if (req.get('Authorization')) {
@@ -20,6 +20,7 @@ router.use((req, res, next) => {
 
 router.use(passport.authenticate('jwt', {session:false}));
 
+router.get('/share-file/:fileName', userController.generateShareLink);
 router.get('/profile',userController.getProfile);
 router.get('/docs',userController.getDocs);
 router.get('/subscribe-update-files', userController.subcribe);

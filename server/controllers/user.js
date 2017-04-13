@@ -8,8 +8,19 @@
   const fb = require('../db.js');
   const liveDocumentStore = require('../liveStore.js');
 
+  exports.generateShareLink = function(req, res){
+    console.log('Gen share link ');
+    const fileName = req.params.fileName;
+    res.json({
+      path: `/users/get-share-file/${req.user.email}/${fileName}`
+    });
+  };
+  exports.getShareFile = function (req, res) {
+    const currentPath = UserModel.getFile(req.params.user, req.params.fileName);
+    res.download(currentPath);
+  }
   exports.download = function (req, res){
-    const currentPath = UserModel.getFile(req);
+    const currentPath = UserModel.getFile(req.user.email, req.params.id);
     res.download(currentPath);
   };
 
@@ -17,7 +28,7 @@
     liveDocumentStore.subcribe(req, res);
   }
 
-  exports.uploadFile = function(req, res){
+  exports.uploadFile = function (req, res){
     const dataAboutFiles = excelModel.parsingFiles(req.files);
 
     utils.serialAsync(dataAboutFiles, function (file) {
@@ -52,7 +63,7 @@
       lastName: req.user.lastName});
   };
 
-  exports.registerUser = function(req, res) {
+  exports.registerUser = function (req, res) {
     const user = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -72,7 +83,7 @@
       });
   };
 
-  exports.authUser = function(req, res){
+  exports.authUser = function (req, res){
     const email = req.body.email;
     const password = req.body.password;
 
