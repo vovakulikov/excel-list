@@ -8,6 +8,26 @@
   const fb = require('../db.js');
   const liveDocumentStore = require('../liveStore.js');
 
+
+  exports.deleteFile = function(req, res) {
+    //console.log('jjsldfj' ,req.user, req.params.file);
+    console.log(req.user.email, req.params.file)
+    fb.removeDocument(req.user, req.params.file)
+    .then((document) => {
+      console.log('Removed doc',document)
+      console.log('File delete successfully');
+      liveDocumentStore.publish(req, {type:"DELETE_FILE", removedDocument : req.params.file})
+      /*res.json({
+        success: true
+      })*/
+    })
+    .catch(err => {
+      res.json({
+        success: false
+      })
+    });
+  };
+
   exports.generateShareLink = function(req, res){
     console.log('Gen share link ');
     const fileName = req.params.fileName;
@@ -15,10 +35,12 @@
       path: `/users/get-share-file/${req.user.email}/${fileName}`
     });
   };
+
   exports.getShareFile = function (req, res) {
     const currentPath = UserModel.getFile(req.params.user, req.params.fileName);
     res.download(currentPath);
-  }
+  };
+
   exports.download = function (req, res){
     const currentPath = UserModel.getFile(req.user.email, req.params.id);
     res.download(currentPath);
@@ -35,7 +57,7 @@
       return fb.addDocumentsToUser(req.user, file);
     }).then(() => {
         //console.log('success branch ', documentInfo);
-        liveDocumentStore.publish(req, {documentInfo : dataAboutFiles})
+        liveDocumentStore.publish(req, {type:"ADD_NEW_FILES", documentInfo : dataAboutFiles})
         //res.send({documentInfo : dataAboutFiles});
         res.json({success: true})
       }).catch ((err) => {
@@ -95,7 +117,8 @@
         const token = jwt.sign({email: user.email}, 'secret', {
           expiresIn: 604800
         });
-        res.json({success: true,
+        res.json({
+          success: true,
           token:'JWT '+ token,
           user: user.email
         });

@@ -48,6 +48,11 @@ class Firebase {
     return this.fb.database().ref(`users/${hash(user.email)}`).remove()
   }
 
+  removeDocument(user, document) {
+    return this.fb.database().ref(`users/${hash(user.email)}/documents/${hash(document)}`)
+      .remove()
+  }
+
   addDocumentsToUser(user, document){
     return new Promise((resolve, reject) => {
       this.fb.database().ref(`users/${hash(user.email)}/documents/${hash(document.fileName)}`)
