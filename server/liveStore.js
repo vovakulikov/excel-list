@@ -18,7 +18,7 @@ exports.publish = function (req, documentsInfo) {
 
 setInterval(()=>{
   Object.keys(clients).forEach(function (key) {
-    //console.log(key, clients[key].length);
+    console.log(key, clients[key].length);
 })
   //console.log(clients);
 },2000)

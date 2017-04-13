@@ -7,54 +7,50 @@ import { UserFile } from './interfaces/User-file';
 @Injectable()
 export class RequestService {
   address: string;
+  headers: Headers;
   constructor(private http: Http) {
     this.address = 'http://localhost:3000';
+    this.headers  = new Headers();
+    this.headers.append('Authorization',localStorage.getItem('id_token'));
+
   }
 
   uploadUserFiles(files: File[]){
     const currentAddress = this.address + '/users/upload-user-file';
     const formData: FormData = new FormData();
-    const headers = new Headers();
 
-    headers.append('Authorization',localStorage.getItem('id_token'));
     files.forEach((file) => {
       formData.append('uploads', file, file.name);
     });
 
     return this.http.post(currentAddress, formData, {
-      headers: headers
+      headers: this.headers
     }).map(res => res.json());
   }
 
   getShareLink(file){
     const currentAdress = this.address + '/users/share-file/'+file.fileName;
-    const headers = new Headers();
 
-    headers.append('Authorization',localStorage.getItem('id_token'));
     return this.http.get(currentAdress, {
-      headers: headers
+      headers: this.headers
     }).map(res => {
       return res.json();
     })
   }
   deleteDocument(document) {
     const currentAdress = this.address + '/users/delete-file/'+document.fileName;
-    const headers = new Headers();
 
-    headers.append('Authorization',localStorage.getItem('id_token'));
     return this.http.delete(currentAdress, {
-      headers: headers
+      headers: this.headers
     }).map(res => {
       return res.json();
     })
   }
   subOnUpdateFiles(){
     const currentAdress = this.address + '/users/subscribe-update-files';
-    const headers = new Headers();
 
-    headers.append('Authorization',localStorage.getItem('id_token'));
     return this.http.get(currentAdress, {
-      headers: headers
+      headers: this.headers
     }).map(res => {
       return res.json();
     })
@@ -62,11 +58,9 @@ export class RequestService {
 
   getUserListFile(){
     const currentAdress = this.address + '/users/docs';
-    const headers = new Headers();
 
-    headers.append('Authorization',localStorage.getItem('id_token'));
     return this.http.get(currentAdress, {
-      headers: headers
+      headers: this.headers
     }).map(res => res.json());
   }
 
