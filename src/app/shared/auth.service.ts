@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import { User } from '../shared/interfaces/user';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AuthService {
@@ -42,7 +43,7 @@ export class AuthService {
     headers.append('Content-type', 'application/json');
     headers.append('Authorization', this.authToken);
     return this.http.get('http://localhost:3000/users/profile', {headers: headers})
-      .map(res => res.json());
+      .map(res => res.json())
   }
 
   logout() {

@@ -3,6 +3,8 @@ import { AuthService } from '../shared/auth.service';
 import { RequestService } from '../shared/request.service';
 import {StoreService} from "../shared/store.service";
 import 'rxjs/add/operator/catch';
+import { User } from '../shared/interfaces/user';
+
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +12,7 @@ import 'rxjs/add/operator/catch';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: Object;
+  user: User;
 
   constructor(private authService: AuthService,
               private reqService: RequestService,
@@ -23,11 +25,6 @@ export class ProfileComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile;
       this.subscribe();
-    }, err => {
-      console.log('error happand')
-      setTimeout(()=>{
-        this.subscribe();
-      }, 1000)
     });
   }
 
@@ -37,6 +34,9 @@ export class ProfileComponent implements OnInit {
       console.log('Пришли данные', newFiles);
       this.storeService.addServerFile(newFiles.documentInfo);
       this.subscribe()
+    }, err => {
+      console.log('some troble wit update subscribe');
+      this.subscribe();
     })
   }
 

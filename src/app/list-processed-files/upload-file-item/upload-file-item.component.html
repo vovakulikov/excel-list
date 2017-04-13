@@ -1,6 +1,6 @@
 <div class="card" (click)="onDownload()">
 
-  <div class="card__section">
+  <div class="card__section" (click)="clickOnName($event)">
     <p class="card__label">Name</p>
     <div class="item__name">{{file.OriginalName}}</div>
   </div>

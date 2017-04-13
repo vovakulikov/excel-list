@@ -11,3 +11,9 @@
 .success{
   background: #ccf5b3;
 }
+.link-copilied{
+  background: #c1dddd;
+  padding: 5px;
+  margin-top: 15px;
+  margin-bottom: 5px
+}

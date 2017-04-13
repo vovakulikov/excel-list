@@ -26,6 +26,18 @@ export class RequestService {
     }).map(res => res.json());
   }
 
+  getShareLink(file){
+    const currentAdress = this.address + '/users/share-file/'+file.fileName;
+    const headers = new Headers();
+
+    headers.append('Authorization',localStorage.getItem('id_token'));
+    return this.http.get(currentAdress, {
+      headers: headers
+    }).map(res => {
+      return res.json();
+    })
+  }
+
   subOnUpdateFiles(){
     const currentAdress = this.address + '/users/subscribe-update-files';
     const headers = new Headers();

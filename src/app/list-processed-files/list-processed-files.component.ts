@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../shared/store.service';
 import { RequestService } from '../shared/request.service';
+import { ModalService } from '../shared/modal.service';
 
 @Component({
   selector: 'app-list-processed-files',
@@ -12,7 +13,8 @@ export class ListProcessedFilesComponent implements OnInit {
   listFiles: Object[];
 
   constructor(private requestService: RequestService,
-              private storeService: StoreService) {
+              private storeService: StoreService,
+              private modalService: ModalService) {
     this.listFiles = [];
   }
 
@@ -25,5 +27,13 @@ export class ListProcessedFilesComponent implements OnInit {
 
   download(fileInform) {
     this.requestService.downloadUserFile(fileInform);
+  }
+
+  getShareLink(file){
+    //console.log('Catch emit event in list-proccesed component', file);
+    this.requestService.getShareLink(file).subscribe( link => {
+      console.log(link);
+      this.modalService.showModal(link)
+    })
   }
 }

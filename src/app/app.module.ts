@@ -9,7 +9,7 @@ import { RequestService } from './shared/request.service';
 import { StoreService } from './shared/store.service';
 import { AuthService } from './shared/auth.service';
 import { FlashMessagesService } from './shared/flash-messages.service';
-
+import { ModalService } from './shared/modal.service';
 import { AuthGuard } from './guards/auth.guard';
 
 
@@ -27,6 +27,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FlashMessagesComponent } from './flash-messages/flash-messages.component';
 import { HeaderComponent } from './header/header.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { WrapperComponent } from './wrapper/wrapper.component';
     ProfileComponent,
     FlashMessagesComponent,
     HeaderComponent,
-    WrapperComponent
+    WrapperComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,7 @@ import { WrapperComponent } from './wrapper/wrapper.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [FlashMessagesService, RequestService, StoreService, AuthService, AuthGuard],
+  providers: [FlashMessagesService, RequestService, StoreService, AuthService, ModalService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
