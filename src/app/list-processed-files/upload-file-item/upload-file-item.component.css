@@ -12,6 +12,7 @@
   flex: 1 1 200px;
   margin: 0 10px 10px 0;
   transition: background 0.2s ease;
+  position: relative;
 }
 .card:hover{
   background: #ffdc9b;
@@ -26,4 +27,18 @@
 }
 .card__section{
   margin-bottom: 10px;
+}
+.card__deleteIcon{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.card__deleteIcon svg {
+  height: 20px;
+  width: 20px;
+  margin: auto;
+
 }

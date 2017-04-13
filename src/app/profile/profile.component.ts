@@ -30,9 +30,19 @@ export class ProfileComponent implements OnInit {
 
   subscribe(){
     console.log('subscribe init')
-    this.reqService.subOnUpdateFiles().subscribe((newFiles) => {
-      console.log('Пришли данные', newFiles);
-      this.storeService.addServerFile(newFiles.documentInfo);
+    this.reqService.subOnUpdateFiles().subscribe((response) => {
+      console.log('Пришли данные', response);
+      switch(response.type){
+        case "ADD_NEW_FILES": {
+          console.log('add_new_files')
+          this.storeService.addServerFile(response.documentInfo);
+          break;
+        }
+        case "DELETE_FILE":{
+          this.storeService.deleteDocument(response.removedDocument);
+          break;
+        }
+      }
       this.subscribe()
     }, err => {
       console.log('some troble wit update subscribe');

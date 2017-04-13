@@ -37,7 +37,17 @@ export class RequestService {
       return res.json();
     })
   }
+  deleteDocument(document) {
+    const currentAdress = this.address + '/users/delete-file/'+document.fileName;
+    const headers = new Headers();
 
+    headers.append('Authorization',localStorage.getItem('id_token'));
+    return this.http.delete(currentAdress, {
+      headers: headers
+    }).map(res => {
+      return res.json();
+    })
+  }
   subOnUpdateFiles(){
     const currentAdress = this.address + '/users/subscribe-update-files';
     const headers = new Headers();

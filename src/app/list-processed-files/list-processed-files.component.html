@@ -2,5 +2,6 @@
   <app-upload-file-item *ngFor="let uploadFile of listFiles"
                         (download)="download($event)"
                         [file]="uploadFile"
-                        (getShareLink)="getShareLink($event)"></app-upload-file-item>
+                        (getShareLink)="getShareLink($event)"
+                        (deleteDocument)="deleteDocument($event)"></app-upload-file-item>
 </section>

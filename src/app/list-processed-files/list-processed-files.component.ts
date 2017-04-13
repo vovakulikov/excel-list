@@ -36,4 +36,14 @@ export class ListProcessedFilesComponent implements OnInit {
       this.modalService.showModal(link)
     })
   }
+
+  deleteDocument(document){
+    console.log('req to delete some file', document);
+    this.requestService.deleteDocument(document).subscribe((responce) => {
+      console.log(responce)
+      if(responce.success) {
+        //this.storeService.deleteDocument(document);
+      }
+    })
+  }
 }
