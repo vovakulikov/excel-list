@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import { User } from '../shared/interfaces/user';
 
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

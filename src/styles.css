@@ -9,6 +9,7 @@ html,body{
 }
 body{
   font-family: Arial;
+  overflow: hidden;
 }
 section{
   margin-top: 40px;

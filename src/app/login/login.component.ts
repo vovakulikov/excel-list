@@ -2,11 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { Router } from "@angular/router"
 import { FlashMessagesService } from '../shared/flash-messages.service';
+import { getAnimationConfig } from '../router.animation';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css','../shared/css/controlls.css']
+  animations: [getAnimationConfig()],
+  styleUrls: ['./login.component.css','../shared/css/controlls.css'],
+  host: {
+    '[@openClose]': 'true',
+    'style': 'display: block;'
+  }
 })
 export class LoginComponent{
 

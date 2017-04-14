@@ -1,10 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  trigger, transition, style, animate } from '@angular/core';
 import { StoreService } from '../shared/store.service';
 import { RequestService } from '../shared/request.service';
 import { ModalService } from '../shared/modal.service';
 
 @Component({
   selector: 'app-list-processed-files',
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({transform: 'translateY(-10px)', opacity: 0}),
+          animate('100ms', style({transform: 'translateY(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateX(0)', opacity: 1}),
+          animate('100ms', style({transform: 'translateY(-10px)', opacity: 0}))
+        ])
+      ]
+    )
+  ],
   templateUrl: './list-processed-files.component.html',
   styleUrls: ['./list-processed-files.component.css']
 })

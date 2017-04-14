@@ -1,9 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, trigger, transition, style, animate } from '@angular/core';
 import { ModalService } from '../shared/modal.service';
 import { FlashMessagesService } from '../shared/flash-messages.service';
 import { UserFile } from '../shared/interfaces/User-file';
 @Component({
   selector: 'app-modal',
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({transform: 'translateY(-15px)', opacity: 0}),
+          animate('100ms', style({transform: 'translateY(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateX(0)', opacity: 1}),
+          animate('100ms', style({transform: 'translateY(-15px)', opacity: 0}))
+        ])
+      ]
+    )
+  ],
   templateUrl: './modal.component.html',
   styleUrls: ['../shared/css/controlls.css', './modal.component.css']
 })
