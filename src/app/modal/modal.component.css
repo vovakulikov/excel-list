@@ -10,14 +10,14 @@
   ~animation-fill-mode: forwards;
   background: repeating-linear-gradient( 45deg,
                 rgba(245, 222, 179, 0.69),
-                rgba(245, 222, 179, 0.69) 300px,
-                rgba(255, 255, 255, 0.9) 300px,
-                rgba(255, 255, 255, 0.89) 600px ),
+                rgba(245, 222, 179, 0.69) 500px,
+                rgba(255, 255, 255, 0.9) 500px,
+                rgba(255, 255, 255, 0.89) 1000px ),
               repeating-linear-gradient( -45deg,
                 rgba(255, 255, 255, 0.9),
-                rgba(255, 255, 255, 0.89) 300px,
-                rgba(245, 222, 179, 0.69) 300px,
-                rgba(245, 222, 179, 0.69) 600px);
+                rgba(255, 255, 255, 0.89) 500px,
+                rgba(245, 222, 179, 0.69) 500px,
+                rgba(245, 222, 179, 0.69) 1000px);
 
 }
 @keyframes showUp{

@@ -7,8 +7,7 @@ import { getAnimationConfig } from '../router.animation';
   styleUrls: ['./wrapper.component.css'],
   host: {
     '[@openClose]': 'true',
-    'style': 'display: block;'
-  }
+    'style': 'display: block;'}
 })
 export class WrapperComponent {
 

@@ -13,7 +13,7 @@ function smooth(){
           opacity: 0,
           transform: "translateY(10px)",
         }),
-        animate('250ms)', style({
+        animate('150ms)', style({
           opacity: 1,
           transform: "translateY(0px)",
         }))
