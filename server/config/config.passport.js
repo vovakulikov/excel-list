@@ -17,7 +17,7 @@ module.exports = function(passport) {
       }
       if (userProfile) {
         return done(null, userProfile);
-      }
+      } else
         return done(null, false);
         // it's a bad looking thing when you have last return in condition.
         /**

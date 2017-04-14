@@ -75,9 +75,11 @@ export class StoreService {
       this.uploadedFile.push(file);
     });
   }
+
   clearUploadServerFiles(){
     this.uploadedFile.splice(0, this.uploadedFile.length);
   }
+
   deleteDocument(removedDoc) {
     const currentDoc = this.uploadedFile.filter((doc) => {
       return (doc['fileName'] == removedDoc);

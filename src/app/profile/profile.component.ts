@@ -13,32 +13,44 @@ import { User } from '../shared/interfaces/user';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  reqForSub;
 
   constructor(private authService: AuthService,
               private reqService: RequestService,
               private storeService: StoreService ) {
-
-    this.storeService.clearUploadServerFiles();
   }
 
   ngOnInit() {
+    this.storeService.clearUploadServerFiles();
+    if(this.reqForSub){
+      this.reqForSub.unsubscribe();
+    }
+
+    this.subscribe();
+
     this.authService.getProfile().subscribe(profile => {
       this.user = profile;
-      this.subscribe();
+      console.log(this.user);
     });
   }
 
+  ngOnDestroy(){
+    this.storeService.clearUploadServerFiles();
+    this.reqForSub.unsubscribe();
+  }
+
   subscribe(){
-    console.log('subscribe init')
-    this.reqService.subOnUpdateFiles().subscribe((response) => {
+    console.log('subscribe init');
+    this.reqForSub = this.reqService.subOnUpdateFiles().subscribe((response) => {
       console.log('Пришли данные', response);
       switch(response.type){
         case "ADD_NEW_FILES": {
-          console.log('add_new_files')
+          console.log('add_new_files');
           this.storeService.addServerFile(response.documentInfo);
           break;
         }
         case "DELETE_FILE":{
+          console.log('delete files');
           this.storeService.deleteDocument(response.removedDocument);
           break;
         }

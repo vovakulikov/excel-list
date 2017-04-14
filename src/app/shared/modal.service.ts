@@ -10,7 +10,7 @@ export class ModalService {
     return this.stream;
   }
 
-  showModal(link){
-    this.stream.next(link);
+  showModal(link, file){
+    this.stream.next({link, file});
   }
 }

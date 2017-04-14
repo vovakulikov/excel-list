@@ -15,10 +15,10 @@ const api = require('./server/routes/api');
 const user = require('./server/routes/user');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./api/swagger/swagger.json');
-const debug = require('debug')('http');
+//const debug = require('debug')('http');
 
 app.use(cors());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.set('port',3000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,7 +38,7 @@ app.get('*', (req, res) => {
 
 server.listen(app.get('port'),function(){
   console.log('Server start')
-  debug('listening on ', app.get('port'));
+  //debug('listening on ', app.get('port'));
 });
 
 module.exports = app;

@@ -1,7 +1,17 @@
 <div class="modal__layout" (click)="closeModal()" *ngIf="stateShow" >
   <div class="modal__body">
     <div>
-      <label class="login__label" for="shareLink">Link for share</label>
+      <label class="login__label label-share-link" for="shareLink">Link for share</label>
+      <div>
+        <div class="card__section" (click)="clickOnName($event)">
+          <p class="card__label">Name</p>
+          <div class="item__name">{{file.OriginalName}}</div>
+        </div>
+        <div class="card__section">
+          <p class="card__label_medium">Uniq filename</p>
+          <div class="item__filename">{{file.fileName}}</div>
+        </div>
+      </div>
       <input class="login__input share-link-input" id="shareLink" class="share-link-input" #shareInput [(ngModel)]='linkInput' type="text">
       <button class="login__submit-button" type="copiled" (click)="copyLink($event)">Copy link</button>
     </div>

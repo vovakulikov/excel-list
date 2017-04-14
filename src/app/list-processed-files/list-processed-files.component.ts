@@ -19,8 +19,10 @@ export class ListProcessedFilesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.storeService.clearUploadServerFiles();
     this.listFiles = this.storeService.getUploadFile();
     this.requestService.getUserListFile().subscribe(files => {
+      console.log('file from server ',files)
       this.storeService.addServerFile(files);
     })
   }
@@ -33,7 +35,7 @@ export class ListProcessedFilesComponent implements OnInit {
     //console.log('Catch emit event in list-proccesed component', file);
     this.requestService.getShareLink(file).subscribe( link => {
       console.log(link);
-      this.modalService.showModal(link)
+      this.modalService.showModal(link, file);
     })
   }
 
